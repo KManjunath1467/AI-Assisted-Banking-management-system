@@ -3,15 +3,15 @@ services:
     image: agent-openai-java-banking-assistant/frontend
     build: ./frontend
     environment:
-      REACT_APP_API_BASE_URL: "http://copilot:8080"
-    ports:
+      REACT_APP_API_BASE_URL: "http://copilot:8080" 
+    ports: 
       - "80:80"
   copilot:
     image: agent-openai-java-banking-assistant/copilot-backend
     build: ./copilot
     environment:
-      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT}
-      - AZURE_STORAGE_CONTAINER=${AZURE_STORAGE_CONTAINER}
+      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT}  
+      - AZURE_STORAGE_CONTAINER=${AZURE_STORAGE_CONTAINER}   
       - AZURE_OPENAI_CHATGPT_MODEL=${AZURE_OPENAI_CHATGPT_MODEL}
       - AZURE_OPENAI_SERVICE=${AZURE_OPENAI_SERVICE}
       - AZURE_OPENAI_CHATGPT_DEPLOYMENT=${AZURE_OPENAI_CHATGPT_DEPLOYMENT}
