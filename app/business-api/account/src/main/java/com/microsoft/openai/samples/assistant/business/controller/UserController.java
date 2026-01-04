@@ -1,6 +1,5 @@
-```java
-package com.microsoft.openai.samples.assistant.business.controller;
 
+package com.microsoft.openai.samples.assistant.business.controller;
 import com.microsoft.openai.samples.assistant.business.models.Account;
 import com.microsoft.openai.samples.assistant.business.service.UserService;
 import org.slf4j.Logger;
