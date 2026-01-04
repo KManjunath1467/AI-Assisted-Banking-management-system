@@ -1,17 +1,17 @@
 package com.microsoft.openai.samples.assistant.business.service;
 
-import com.microsoft.openai.samples.assistant.business.models.Account;
-import com.microsoft.openai.samples.assistant.business.models.PaymentMethod;
-import com.microsoft.openai.samples.assistant.business.models.PaymentMethodSummary;
-import com.microsoft.openai.samples.assistant.business.models.Beneficiary;
+import com.microsoft.openai.samples.assistant.business.models.Account;  
+import com.microsoft.openai.samples.assistant.business.models.PaymentMethod; 
+import com.microsoft.openai.samples.assistant.business.models.PaymentMethodSummary; 
+import com.microsoft.openai.samples.assistant.business.models.Beneficiary; 
 
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays; 
+import java.util.HashMap; 
+import java.util.List; 
 import java.util.Map;
-
+ 
 @Service
 public class AccountService {
 
@@ -64,12 +64,12 @@ public class AccountService {
             throw new IllegalArgumentException("AccountId is not a valid number");
         }
         // Return account data from the map
-        return this.accounts.get(accountId);
-    }
+        return this.accounts.get(accountId); 
+    } 
 
-    public PaymentMethod getPaymentMethodDetails(String paymentMethodId) {
-        if (paymentMethodId == null || paymentMethodId.isEmpty())
-            throw new IllegalArgumentException("AccountId is empty or null");
+    public PaymentMethod getPaymentMethodDetails(String paymentMethodId) { 
+        if (paymentMethodId == null || paymentMethodId.isEmpty()) 
+            throw new IllegalArgumentException("AccountId is empty or null"); 
         try {
             Integer.parseInt(paymentMethodId);
         } catch (NumberFormatException e) {
@@ -83,14 +83,14 @@ public class AccountService {
         if (accountId == null || accountId.isEmpty())
             throw new IllegalArgumentException("AccountId is empty or null");
         try {
-            Integer.parseInt(accountId);
+            Integer.parseInt(accountId); 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("AccountId is not a valid number");
+            throw new IllegalArgumentException("AccountId is not a valid number"); 
         }
         // Return dummy list of beneficiaries
         return Arrays.asList(
                 new Beneficiary("1", "Mike ThePlumber", "123456789", "Intesa Sanpaolo"),
-                new Beneficiary("2", "Jane TheElectrician", "987654321", "UBS")
+                new Beneficiary("2", "Jane TheElectrician", "987654321", "UBS") 
         );
     }
 }
