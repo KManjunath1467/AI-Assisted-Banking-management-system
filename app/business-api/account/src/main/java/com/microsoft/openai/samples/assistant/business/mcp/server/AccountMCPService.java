@@ -1,11 +1,12 @@
+
 package com.microsoft.openai.samples.assistant.business.mcp.server;
 
 import com.microsoft.openai.samples.assistant.business.models.Account;
 import com.microsoft.openai.samples.assistant.business.models.Beneficiary;
 import com.microsoft.openai.samples.assistant.business.models.PaymentMethod;
 import com.microsoft.openai.samples.assistant.business.service.AccountService;
-import org.springframework.stereotype.Service;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,23 +14,24 @@ import java.util.List;
 public class AccountMCPService {
 
     private final AccountService accountService;
+
     public AccountMCPService(AccountService accountService) {
-       this.accountService = accountService;
+        this.accountService = accountService;
     }
 
-    @Tool(description = "Get account details and available payment methods")
+    @Tool(description = "Retrieve account information and supported payment methods")
     public Account getAccountDetails(String accountId) {
-        return this.accountService.getAccountDetails(accountId);
-
+        return accountService.getAccountDetails(accountId);
     }
 
-    @Tool(description = "Get payment method detail with available balance")
+    @Tool(description = "Retrieve payment method details along with the available balance")
     public PaymentMethod getPaymentMethodDetails(String paymentMethodId) {
-       return this.accountService.getPaymentMethodDetails(paymentMethodId);
+        return accountService.getPaymentMethodDetails(paymentMethodId);
     }
 
-    @Tool(description = "Get list of registered beneficiaries for a specific account")
+    @Tool(description = "Retrieve all beneficiaries registered for a given account")
     public List<Beneficiary> getRegisteredBeneficiary(String accountId) {
-     return this.accountService.getRegisteredBeneficiary(accountId);
+        return accountService.getRegisteredBeneficiary(accountId);
     }
 }
+```
