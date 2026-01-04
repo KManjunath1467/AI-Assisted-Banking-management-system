@@ -1,4 +1,3 @@
-```java
 package com.microsoft.openai.samples.assistant.business.controller;
 
 import com.microsoft.openai.samples.assistant.business.models.Account;
