@@ -1,3 +1,4 @@
+```java
 package com.microsoft.openai.samples.assistant.business.controller;
 
 import com.microsoft.openai.samples.assistant.business.models.Account;
@@ -16,18 +17,28 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(UserController.class);
 
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping("/{userName}/accounts")
-    public List<Account> getAccountsByUserName(@PathVariable String userName) {
-        // Implement the logic to get the list of all accounts for a specific user
-        logger.info("Received request to get accounts for user: {}", userName);
-        return userService.getAccountsByUserName(userName);
+    public List<Account> getAccountsByUserName(
+            @PathVariable("userName") String userName) {
+
+        LOGGER.info("Fetching accounts for user: {}", userName);
+
+        List<Account> accounts = userService.getAccountsByUserName(userName);
+
+        LOGGER.info("Retrieved {} account(s) for user: {}",
+                accounts.size(), userName);
+
+        return accounts;
     }
 }
+```
