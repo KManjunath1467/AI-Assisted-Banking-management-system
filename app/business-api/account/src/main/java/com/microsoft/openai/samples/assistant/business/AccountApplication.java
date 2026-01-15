@@ -1,3 +1,4 @@
+```java
 // Copyright (c) Microsoft. All rights reserved.
 package com.microsoft.openai.samples.assistant.business;
 
@@ -9,12 +10,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AccountApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountApplication.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(AccountApplication.class);
 
     public static void main(String[] args) {
-        LOG.info(
+        logActiveProfile();
+        SpringApplication.run(AccountApplication.class, args);
+    }
+
+    /*
+     * Optional helper.
+     * Keeps startup logging separate from application bootstrapping.
+     */
+    private static void logActiveProfile() {
+        String activeProfile = System.getProperty("spring.profiles.active");
+
+        LOGGER.info(
                 "Application profile from system property is [{}]",
-                System.getProperty("spring.profiles.active"));
-        new SpringApplication(AccountApplication.class).run(args);
+                activeProfile
+        );
     }
 }
+```
