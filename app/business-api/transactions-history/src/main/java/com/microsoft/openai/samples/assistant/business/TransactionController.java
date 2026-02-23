@@ -2,7 +2,13 @@ package com.microsoft.openai.samples.assistant.business;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -10,27 +16,65 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    private final TransactionService transactionService;
-    private static final Logger logger = LoggerFactory.getLogger(TransactionController.class);
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+```
+private static final Logger LOGGER =
+        LoggerFactory.getLogger(TransactionController.class);
+
+private final TransactionService transactionService;
+
+public TransactionController(TransactionService transactionService) {
+    this.transactionService = transactionService;
+}
+
+@GetMapping("/{accountId}")
+public List<Transaction> getTransactions(
+        @PathVariable("accountId") String accountId,
+        @RequestParam(
+                name = "recipient_name",
+                required = false
+        ) String recipientName) {
+
+    LOGGER.info(
+            "Fetching transactions for account [{}]. Recipient filter: [{}]",
+            accountId,
+            recipientName
+    );
+
+    boolean hasRecipientFilter =
+            recipientName != null && !recipientName.isBlank();
+
+    if (hasRecipientFilter) {
+        return transactionService.getTransactionsByRecipientName(
+                accountId,
+                recipientName
+        );
     }
 
-    @GetMapping("/{accountId}")
-    public List<Transaction> getTransactions(@PathVariable String accountId, @RequestParam(name = "recipient_name", required = false) String recipientName){
-        logger.info("Received request to get transactions for accountid[{}]. Recipient filter is[{}]",accountId,recipientName);
-        if(recipientName != null && !recipientName.isEmpty()){
-            return transactionService.getTransactionsByRecipientName(accountId, recipientName);
-        }
-        else
-            return transactionService.getlastTransactions(accountId);
-    }
+    return transactionService.getlastTransactions(accountId);
+}
 
-    @PostMapping("/{accountId}")
-    public void notifyTransaction(@PathVariable String accountId, @RequestBody Transaction transaction){
-        logger.info("Received request to notify transaction for accountid[{}]. {}", accountId,transaction);
-        transactionService.notifyTransaction(accountId, transaction);
-    }
+@PostMapping("/{accountId}")
+public void notifyTransaction(
+        @PathVariable("accountId") String accountId,
+        @RequestBody Transaction transaction) {
 
+    LOGGER.info(
+            "Received transaction notification for account [{}]: {}",
+            accountId,
+            transaction
+    );
+
+    transactionService.notifyTransaction(accountId, transaction);
+}
+
+/*
+ * Optional helper.
+ * Use only when transaction filtering needs to be checked
+ * independently in future controller methods.
+ */
+private boolean hasRecipientFilter(String recipientName) {
+    return recipientName != null && !recipientName.isBlank();
+}
+```
 
 }
