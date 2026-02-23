@@ -1,54 +1,78 @@
 openapi: 3.0.3
+
 info:
   title: Payment API
   version: 1.0.0
+  description: API for submitting payment requests.
+
 paths:
+
   /payments:
     post:
       operationId: submitPayment
       summary: Submit a payment request
+      description: Creates and submits a new payment request.
+
       requestBody:
         required: true
+        description: Payment information required to submit the transaction.
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Payment'
+
       responses:
         '201':
-          description: Payment request submitted successfully
+          description: Payment request submitted successfully.
+
         '400':
-          description: Invalid request body
+          description: The supplied payment request is invalid.
+
         '500':
-          description: Internal server error
+          description: An unexpected server error occurred.
+
 components:
+
   schemas:
+
     Payment:
       type: object
+      description: Information required to submit a payment.
+
       properties:
+
         description:
           type: string
-          description: Description of the payment
+          description: Description or purpose of the payment.
+
         recipientName:
           type: string
-          description: Name of the recipient
+          description: Full name of the payment recipient.
+
         recipientId:
           type: string
-          description: ID of the recipient
+          description: Unique identifier of the payment recipient.
+
         recipientBankCode:
           type: string
-          description: Bank code of the recipient
+          description: Bank code associated with the recipient.
+
         accountId:
           type: string
-          description: ID of the account
+          description: Identifier of the account used for the payment.
+
         paymentMethodId:
           type: string
-          description: ID of the payment method
+          description: Identifier of the payment method used for the payment.
+
         amount:
           type: string
-          description: Amount of the payment
+          description: Amount to be transferred.
+
         timestamp:
           type: string
-          description: Timestamp of the payment
+          description: Timestamp associated with the payment request.
+
       required:
         - description
         - recipientName
@@ -57,3 +81,4 @@ components:
         - paymentMethodId
         - amount
         - timestamp
+```
