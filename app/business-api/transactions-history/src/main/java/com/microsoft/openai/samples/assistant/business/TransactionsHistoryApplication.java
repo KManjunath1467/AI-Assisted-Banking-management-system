@@ -9,12 +9,28 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TransactionsHistoryApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TransactionsHistoryApplication.class);
+```
+private static final Logger LOGGER =
+        LoggerFactory.getLogger(TransactionsHistoryApplication.class);
 
-    public static void main(String[] args) {
-        LOG.info(
-                "Application profile from system property is [{}]",
-                System.getProperty("spring.profiles.active"));
-        new SpringApplication(TransactionsHistoryApplication.class).run(args);
-    }
+public static void main(String[] args) {
+    logApplicationProfile();
+    SpringApplication.run(TransactionsHistoryApplication.class, args);
+}
+
+/*
+ * Optional startup helper.
+ * Keeps profile-related logging separate from application startup.
+ */
+private static void logApplicationProfile() {
+    String activeProfile =
+            System.getProperty("spring.profiles.active");
+
+    LOGGER.info(
+            "Application profile from system property is [{}]",
+            activeProfile
+    );
+}
+```
+
 }
