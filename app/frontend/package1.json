@@ -1,0 +1,62 @@
+{
+"application": {
+"name": "Account Management System",
+"version": "1.0.0",
+"environment": "development",
+"features": {
+"accountLookup": true,
+"paymentMethods": true,
+"beneficiaryManagement": true,
+"transactionHistory": true,
+"diagnostics": false
+}
+},
+"runtime": {
+"logging": {
+"enabled": true,
+"level": "INFO",
+"includeTimestamp": true
+},
+"limits": {
+"maxAccountResults": 50,
+"maxTransactionResults": 100,
+"requestTimeoutSeconds": 30
+}
+},
+"account": {
+"supportedCurrencies": [
+"USD",
+"EUR",
+"GBP",
+"INR"
+],
+"validation": {
+"accountId": {
+"required": true,
+"minLength": 3,
+"maxLength": 32
+},
+"userName": {
+"required": true,
+"trimWhitespace": true
+}
+}
+},
+"payment": {
+"supportedTypes": [
+"Visa",
+"BankTransfer",
+"DirectDebit"
+],
+"validation": {
+"amountRequired": true,
+"paymentMethodRequired": true,
+"recipientRequired": true
+}
+},
+"diagnostics": {
+"enabled": false,
+"collectRuntimeMetrics": false,
+"includeRequestIdentifiers": false
+}
+}
