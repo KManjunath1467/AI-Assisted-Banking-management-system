@@ -1,0 +1,219 @@
+/*
+
+* Optional UI enhancement styles.
+* These classes can be used only where additional styling is required.
+* They do not modify the existing application logic.
+  */
+
+:root {
+--app-spacing-xs: 4px;
+--app-spacing-sm: 8px;
+--app-spacing-md: 16px;
+--app-spacing-lg: 24px;
+--app-spacing-xl: 32px;
+
+```
+--app-radius-sm: 6px;
+--app-radius-md: 10px;
+--app-radius-lg: 14px;
+
+--app-transition: 180ms ease;
+```
+
+}
+
+/* Safe global box-sizing */
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+/* Reusable container */
+.ui-container {
+width: 100%;
+max-width: 1200px;
+margin-inline: auto;
+padding-inline: var(--app-spacing-md);
+}
+
+/* Flexible layout helper */
+.ui-flex {
+display: flex;
+align-items: center;
+gap: var(--app-spacing-md);
+}
+
+.ui-flex-column {
+display: flex;
+flex-direction: column;
+gap: var(--app-spacing-md);
+}
+
+/* Card component */
+.ui-card {
+padding: var(--app-spacing-lg);
+border: 1px solid rgba(0, 0, 0, 0.08);
+border-radius: var(--app-radius-md);
+background: #ffffff;
+transition:
+transform var(--app-transition),
+box-shadow var(--app-transition);
+}
+
+.ui-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Form/input enhancement */
+.ui-input {
+width: 100%;
+min-height: 40px;
+padding: 8px 12px;
+border: 1px solid #c8c8c8;
+border-radius: var(--app-radius-sm);
+outline: none;
+transition:
+border-color var(--app-transition),
+box-shadow var(--app-transition);
+}
+
+.ui-input:focus {
+border-color: #666;
+box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.12);
+}
+
+/* Button helper */
+.ui-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: var(--app-spacing-sm);
+
+```
+min-height: 40px;
+padding: 8px 16px;
+
+border: 1px solid transparent;
+border-radius: var(--app-radius-sm);
+
+cursor: pointer;
+user-select: none;
+
+transition:
+    transform var(--app-transition),
+    box-shadow var(--app-transition),
+    opacity var(--app-transition);
+```
+
+}
+
+.ui-button:hover {
+transform: translateY(-1px);
+}
+
+.ui-button:active {
+transform: translateY(0);
+}
+
+.ui-button:disabled {
+cursor: not-allowed;
+opacity: 0.55;
+}
+
+/* Status indicator */
+.ui-status {
+display: inline-flex;
+align-items: center;
+gap: var(--app-spacing-sm);
+font-size: 0.9rem;
+}
+
+.ui-status::before {
+content: "";
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: currentColor;
+}
+
+/* Loading indicator */
+.ui-loading {
+display: inline-block;
+width: 18px;
+height: 18px;
+border: 2px solid currentColor;
+border-right-color: transparent;
+border-radius: 50%;
+animation: ui-spin 700ms linear infinite;
+}
+
+@keyframes ui-spin {
+to {
+transform: rotate(360deg);
+}
+}
+
+/* Visually hidden content for accessibility */
+.ui-visually-hidden {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+}
+
+/*
+
+* Optional diagnostic panel.
+* Use only if the application needs a lightweight
+* client-side diagnostics/debugging section.
+  */
+  .ui-diagnostics {
+  display: none;
+  padding: var(--app-spacing-md);
+  border: 1px dashed #999;
+  border-radius: var(--app-radius-md);
+  font-family: monospace;
+  font-size: 0.85rem;
+  }
+
+.ui-diagnostics.is-visible {
+display: block;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+.ui-container {
+padding-inline: var(--app-spacing-sm);
+}
+
+```
+.ui-flex {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.ui-card {
+    padding: var(--app-spacing-md);
+}
+```
+
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+scroll-behavior: auto !important;
+transition-duration: 0.01ms !important;
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+}
+}
