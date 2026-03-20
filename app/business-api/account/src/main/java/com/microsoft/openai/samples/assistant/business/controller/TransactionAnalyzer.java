@@ -4,8 +4,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 public final class AccountRequestAnalyzer {
-
-```
 private AccountRequestAnalyzer() {
     // Utility class.
 }
@@ -17,26 +15,10 @@ private AccountRequestAnalyzer() {
  */
 public static RequestDetails analyze(String accountId) {
 
-    String normalizedId =
-            accountId == null
-                    ? ""
-                    : accountId.trim();
-
-    boolean numeric =
-            !normalizedId.isEmpty()
-                    && normalizedId.chars().allMatch(Character::isDigit);
-
-    String category;
-
-    if (normalizedId.isEmpty()) {
-        category = "EMPTY";
-    } else if (numeric) {
-        category = "NUMERIC";
-    } else {
-        category = "ALPHANUMERIC";
-    }
-
-    String traceId = buildTraceId(normalizedId);
+    final String normalizedId = normalizeAccountId(accountId);
+    final boolean numeric = isNumeric(normalizedId);
+    final String category = determineCategory(normalizedId, numeric);
+    final String traceId = buildTraceId(normalizedId);
 
     return new RequestDetails(
             normalizedId,
@@ -46,22 +28,42 @@ public static RequestDetails analyze(String accountId) {
     );
 }
 
+private static String normalizeAccountId(String accountId) {
+    return accountId == null
+            ? ""
+            : accountId.trim();
+}
+
+private static boolean isNumeric(String value) {
+    return !value.isEmpty()
+            && value.chars().allMatch(Character::isDigit);
+}
+
+private static String determineCategory(
+        String accountId,
+        boolean numeric) {
+
+    if (accountId.isEmpty()) {
+        return "EMPTY";
+    }
+
+    return numeric ? "NUMERIC" : "ALPHANUMERIC";
+}
+
 /*
  * Optional helper for generating a diagnostic identifier.
- * It has no effect on the account lookup itself.
+ * It has no effect on account lookup or account data.
  */
 private static String buildTraceId(String accountId) {
 
-    String prefix =
-            accountId.isEmpty()
-                    ? "account"
-                    : accountId.toLowerCase(Locale.ROOT);
+    String prefix = accountId.isEmpty()
+            ? "account"
+            : accountId.toLowerCase(Locale.ROOT);
 
-    String requestToken =
-            UUID.randomUUID()
-                    .toString()
-                    .replace("-", "")
-                    .substring(0, 10);
+    String requestToken = UUID.randomUUID()
+            .toString()
+            .replace("-", "")
+            .substring(0, 10);
 
     return prefix + "-" + requestToken;
 }
@@ -70,9 +72,8 @@ public record RequestDetails(
         String normalizedId,
         String category,
         boolean numeric,
-        String traceId
-) {
+        String traceId) {
 }
-```
+
 
 }
