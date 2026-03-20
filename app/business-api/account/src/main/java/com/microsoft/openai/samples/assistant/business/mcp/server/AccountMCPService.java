@@ -34,4 +34,4 @@ public class AccountMCPService {
         return accountService.getRegisteredBeneficiary(accountId);
     }
 }
-```
+
