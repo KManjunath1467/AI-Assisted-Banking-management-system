@@ -1,71 +1,97 @@
 package com.microsoft.openai.samples.assistant.business.controller;
 
 import java.util.Locale;
-import java.util.regex.Pattern;
+import java.util.UUID;
 
-public final class AccountIdentifierUtility {
+public final class AccountRequestAnalyzer {
 
-```
-private static final Pattern ACCOUNT_ID_PATTERN =
-        Pattern.compile("^[A-Za-z0-9_-]{3,32}$");
+private static final String DEFAULT_CATEGORY = "UNKNOWN";
 
-private AccountIdentifierUtility() {
-    // Prevent instantiation of this utility class.
+private AccountRequestAnalyzer() {
+    // Utility class.
 }
 
 /*
  * Optional helper.
- * Use only when an account identifier needs to be
- * checked before being passed to another component.
+ * Use only when a request needs lightweight account-ID analysis.
+ * This method does not access or modify account data.
  */
-public static boolean isValid(String accountId) {
+public static RequestDetails analyze(String accountId) {
 
-    if (accountId == null) {
-        return false;
-    }
+    String normalizedId = normalize(accountId);
+    String category = classify(normalizedId);
 
-    String normalizedId = accountId.trim();
-
-    return ACCOUNT_ID_PATTERN.matcher(normalizedId).matches();
+    return new RequestDetails(
+            normalizedId,
+            category,
+            normalizedId.length(),
+            createRequestId()
+    );
 }
 
-/*
- * Optional helper.
- * Produces a normalized representation for logging or
- * diagnostic purposes without changing the original value.
- */
-public static String normalize(String accountId) {
-
-    if (accountId == null) {
+private static String normalize(String value) {
+    if (value == null) {
         return "";
     }
 
-    return accountId
-            .trim()
-            .toLowerCase(Locale.ROOT);
+    return value.trim();
+}
+
+private static String classify(String value) {
+    if (value.isEmpty()) {
+        return "EMPTY";
+    }
+
+    if (value.chars().allMatch(Character::isDigit)) {
+        return "NUMERIC";
+    }
+
+    if (value.chars().allMatch(Character::isLetterOrDigit)) {
+        return "ALPHANUMERIC";
+    }
+
+    return DEFAULT_CATEGORY;
 }
 
 /*
  * Optional helper.
- * Masks part of an account identifier when it needs
- * to be displayed in diagnostic output.
+ * Generates a short identifier that can be used when tracing
+ * diagnostic operations in logs.
+ */
+private static String createRequestId() {
+    return UUID.randomUUID()
+            .toString()
+            .replace("-", "")
+            .substring(0, 8)
+            .toUpperCase(Locale.ROOT);
+}
+
+/*
+ * Optional helper.
+ * Use when displaying an account identifier in diagnostic output.
+ * The original value is not modified.
  */
 public static String mask(String accountId) {
 
-    String normalizedId = normalize(accountId);
+    String value = normalize(accountId);
 
-    if (normalizedId.length() <= 4) {
-        return normalizedId;
+    if (value.length() <= 4) {
+        return value;
     }
 
     int visibleCharacters = 4;
-    int hiddenCharacters = normalizedId.length() - visibleCharacters;
+    int hiddenCharacters = value.length() - visibleCharacters;
 
     return "*".repeat(hiddenCharacters)
-            + normalizedId.substring(
-                    normalizedId.length() - visibleCharacters
-            );
+            + value.substring(hiddenCharacters);
 }
-```
+
+public record RequestDetails(
+        String normalizedId,
+        String category,
+        int length,
+        String requestId) {
+}
+
 
 }
