@@ -1,5 +1,4 @@
-```java
-// Copyright (c) Microsoft. All rights reserved.
+
 package com.microsoft.openai.samples.assistant.business;
 
 import org.slf4j.Logger;
@@ -31,4 +30,4 @@ public class AccountApplication {
         );
     }
 }
-```
+
