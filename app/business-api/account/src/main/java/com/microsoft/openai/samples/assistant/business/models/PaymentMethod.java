@@ -1,4 +1,3 @@
-```java
 package com.microsoft.openai.samples.assistant.business.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,4 +24,4 @@ public record Beneficiary(
         return fullName + " - " + bankName;
     }
 }
-```
+
