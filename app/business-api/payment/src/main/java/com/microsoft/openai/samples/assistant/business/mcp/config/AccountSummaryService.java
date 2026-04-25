@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class AccountSummaryService {
 
-```
+
 private final AccountService accountService;
 
 public AccountSummaryService(AccountService accountService) {
@@ -85,6 +85,6 @@ public record AccountSummary(
         );
     }
 }
-```
+
 
 }
