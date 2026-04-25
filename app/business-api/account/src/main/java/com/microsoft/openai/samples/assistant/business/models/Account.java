@@ -31,4 +31,4 @@ public record Account(
         List<PaymentMethodSummary> paymentMethods
 ) {
 }
-```
+
