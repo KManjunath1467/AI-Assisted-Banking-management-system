@@ -207,4 +207,4 @@ components:
         bankName:
           type: string
           description: Name of the beneficiary's bank.
-```
+
