@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public final class AccountRiskAnalyzer {
 
-```
+
 private static final int LOW_RISK_THRESHOLD = 20;
 private static final int MEDIUM_RISK_THRESHOLD = 50;
 
@@ -201,6 +201,6 @@ public record RiskReport(
         List<String> findings
 ) {
 }
-```
+
 
 }
