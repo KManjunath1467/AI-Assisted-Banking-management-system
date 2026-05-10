@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-```
+
 private static final Logger LOGGER =
         LoggerFactory.getLogger(TransactionController.class);
 
@@ -75,6 +75,6 @@ public void notifyTransaction(
 private boolean hasRecipientFilter(String recipientName) {
     return recipientName != null && !recipientName.isBlank();
 }
-```
+
 
 }
