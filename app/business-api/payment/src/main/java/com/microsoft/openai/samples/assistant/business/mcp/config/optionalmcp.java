@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class AccountDiagnosticsMCPService {
 
-```
+
 private final AccountService accountService;
 
 public AccountDiagnosticsMCPService(AccountService accountService) {
@@ -162,6 +162,6 @@ public record AccountDiagnosticResult(
         int populatedFieldCount
 ) {
 }
-```
+
 
 }
