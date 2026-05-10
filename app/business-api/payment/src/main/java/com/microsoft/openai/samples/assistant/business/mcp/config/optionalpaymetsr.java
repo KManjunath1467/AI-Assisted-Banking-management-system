@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PaymentMethodDiagnosticsMCPService {
 
-```
+
 private final AccountService accountService;
 
 public PaymentMethodDiagnosticsMCPService(
@@ -147,6 +147,6 @@ public record PaymentMethodDiagnostic(
         );
     }
 }
-```
+
 
 }
