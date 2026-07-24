@@ -5,23 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Beneficiary(
-        @JsonProperty("id") String id,
-        @JsonProperty("fullName") String fullName,
-        @JsonProperty("bankCode") String bankCode,
-        @JsonProperty("bankName") String bankName
+@JsonProperty("id") String id,
+@JsonProperty("fullName") String fullName,
+@JsonProperty("bankCode") String bankCode,
+@JsonProperty("bankName") String bankName
 ) {
 
-    /*
-     * Optional helper method.
-     * Use only when a compact display value is required.
-     * It does not affect JSON serialization or existing API behavior.
-     */
-    public String getDisplayName() {
-        if (bankName == null || bankName.isBlank()) {
-            return fullName;
-        }
-
-        return fullName + " - " + bankName;
+/*
+ * Optional helper method.
+ * Use only when a compact display value is required.
+ * It does not affect JSON serialization or existing API behavior.
+ */
+public String getDisplayName() {
+    if (bankName == null || bankName.isBlank()) {
+        return fullName;
     }
+
+    return fullName + " - " + bankName;
 }
 
+
+}
