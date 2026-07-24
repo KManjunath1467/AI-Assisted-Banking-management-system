@@ -12,13 +12,13 @@
 --app-spacing-lg: 24px;
 --app-spacing-xl: 32px;
 
-```
+
 --app-radius-sm: 6px;
 --app-radius-md: 10px;
 --app-radius-lg: 14px;
 
 --app-transition: 180ms ease;
-```
+
 
 }
 
@@ -91,7 +91,6 @@ align-items: center;
 justify-content: center;
 gap: var(--app-spacing-sm);
 
-```
 min-height: 40px;
 padding: 8px 16px;
 
@@ -105,7 +104,7 @@ transition:
     transform var(--app-transition),
     box-shadow var(--app-transition),
     opacity var(--app-transition);
-```
+
 
 }
 
@@ -193,7 +192,6 @@ display: block;
 padding-inline: var(--app-spacing-sm);
 }
 
-```
 .ui-flex {
     flex-direction: column;
     align-items: stretch;
@@ -202,7 +200,7 @@ padding-inline: var(--app-spacing-sm);
 .ui-card {
     padding: var(--app-spacing-md);
 }
-```
+
 
 }
 
