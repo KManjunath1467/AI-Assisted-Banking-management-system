@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TransactionsHistoryApplication {
 
-```
+
 private static final Logger LOGGER =
         LoggerFactory.getLogger(TransactionsHistoryApplication.class);
 
@@ -31,6 +31,6 @@ private static void logApplicationProfile() {
             activeProfile
     );
 }
-```
+
 
 }
