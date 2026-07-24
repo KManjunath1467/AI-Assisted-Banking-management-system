@@ -27,9 +27,9 @@ import java.util.Map;
   languages.put("ta", "Tamil");
   languages.put("te", "Telugu");
 
-  ```
+  
    SUPPORTED_LANGUAGES = Collections.unmodifiableMap(languages);
-  ```
+  
 
   }
 
@@ -42,11 +42,11 @@ import java.util.Map;
   return false;
   }
 
-  ```
+  
    return SUPPORTED_LANGUAGES.containsKey(
            normalize(languageCode)
    );
-  ```
+  
 
   }
 
@@ -55,33 +55,33 @@ import java.util.Map;
   return DEFAULT_LANGUAGE;
   }
 
-  ```
+  
    return languageCode.trim()
            .toLowerCase(Locale.ROOT);
-  ```
+  
 
   }
 
   public static String getLanguageName(String languageCode) {
   String normalizedCode = normalize(languageCode);
 
-  ```
+  
    return SUPPORTED_LANGUAGES.getOrDefault(
            normalizedCode,
            SUPPORTED_LANGUAGES.get(DEFAULT_LANGUAGE)
    );
-  ```
+  
 
   }
 
   public static String resolveLanguage(String requestedLanguage) {
   String normalizedCode = normalize(requestedLanguage);
 
-  ```
+  
    return isSupported(normalizedCode)
            ? normalizedCode
            : DEFAULT_LANGUAGE;
-  ```
+  
 
   }
 
