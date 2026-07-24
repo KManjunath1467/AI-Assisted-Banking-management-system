@@ -3,11 +3,11 @@ package com.microsoft.openai.samples.assistant.business.controller;
 import java.util.Locale;
 import java.util.UUID;
 
-public final class AccountRequestAnalyzer {
+public final class TransactionIdentityFilter {
 
 private static final String DEFAULT_CATEGORY = "UNKNOWN";
 
-private AccountRequestAnalyzer() {
+private TransactionIdentityFilter() {
     // Utility class.
 }
 

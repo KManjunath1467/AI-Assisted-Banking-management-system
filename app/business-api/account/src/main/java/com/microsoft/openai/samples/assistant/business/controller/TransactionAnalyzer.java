@@ -3,8 +3,8 @@ package com.microsoft.openai.samples.assistant.business.controller;
 import java.util.Locale;
 import java.util.UUID;
 
-public final class AccountRequestAnalyzer {
-private AccountRequestAnalyzer() {
+public final class TransactionAnalyzer {
+private TransactionAnalyzer() {
     // Utility class.
 }
 
