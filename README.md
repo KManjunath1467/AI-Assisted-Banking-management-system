@@ -47,6 +47,95 @@ The core idea is simple:
 Instead of tightly coupling AI functionality with the database or business logic, the AI layer works as an assistance layer that connects user requests with appropriate backend operations.
 
 ---
+# Project Structure
+
+AI-Assisted-Banking-Management-System/
+│
+├── business-api/
+│   │
+│   ├── user/
+│   │   ├── src/
+│   │   │   ├── main/
+│   │   │   │   ├── java/
+│   │   │   │   │   └── com/
+│   │   │   │   │       └── microsoft/
+│   │   │   │   │           └── openai/
+│   │   │   │   │               └── samples/
+│   │   │   │   │                   └── assistant/
+│   │   │   │   │                       └── business/
+│   │   │   │   │                           ├── controller/
+│   │   │   │   │                           ├── service/
+│   │   │   │   │                           ├── repository/
+│   │   │   │   │                           ├── model/
+│   │   │   │   │                           └── dto/
+│   │   │   │   └── resources/
+│   │   │   │       └── application.properties
+│   │   │   └── test/
+│   │   └── pom.xml
+│   │
+│   ├── account/
+│   │   ├── src/
+│   │   │   ├── main/
+│   │   │   │   ├── java/
+│   │   │   │   │   └── com/
+│   │   │   │   │       └── microsoft/
+│   │   │   │   │           └── openai/
+│   │   │   │   │               └── samples/
+│   │   │   │   │                   └── assistant/
+│   │   │   │   │                       └── business/
+│   │   │   │   │                           ├── controller/
+│   │   │   │   │                           ├── service/
+│   │   │   │   │                           ├── repository/
+│   │   │   │   │                           ├── model/
+│   │   │   │   │                           └── dto/
+│   │   │   │   └── resources/
+│   │   │   │       └── application.properties
+│   │   │   └── test/
+│   │   └── pom.xml
+│   │
+│   ├── payment/
+│   │   ├── src/
+│   │   │   ├── main/
+│   │   │   │   ├── java/
+│   │   │   │   └── resources/
+│   │   │   └── test/
+│   │   └── pom.xml
+│   │
+│   ├── beneficiary/
+│   │   ├── src/
+│   │   └── pom.xml
+│   │
+│   ├── transaction/
+│   │   ├── src/
+│   │   └── pom.xml
+│   │
+│   ├── transaction-analysis/
+│   │   ├── src/
+│   │   └── pom.xml
+│   │
+│   └── risk-analysis/
+│       ├── src/
+│       └── pom.xml
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── database/
+│   ├── schema.sql
+│   └── data.sql
+│
+├── docs/
+│   ├── architecture/
+│   ├── api/
+│   └── screenshots/
+│
+├── pom.xml
+├── README.md
+├── .gitignore
+└── LICENSE
+
 
 # 🎯 Problem Statement
 
@@ -221,7 +310,6 @@ Data Processing
  ▼
 Structured Response
 ```
-
 ### Example
 
 A user asks:
