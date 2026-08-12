@@ -47,82 +47,41 @@ The core idea is simple:
 Instead of tightly coupling AI functionality with the database or business logic, the AI layer works as an assistance layer that connects user requests with appropriate backend operations.
 
 ---
-# Project Structure
+## 📁 Project Structure
 
+```text
 AI-Assisted-Banking-Management-System/
 │
-├── business-api/
-│   │
-│   ├── user/
-│   │   ├── src/
-│   │   │   ├── main/
-│   │   │   │   ├── java/
-│   │   │   │   │   └── com/
-│   │   │   │   │       └── microsoft/
-│   │   │   │   │           └── openai/
-│   │   │   │   │               └── samples/
-│   │   │   │   │                   └── assistant/
-│   │   │   │   │                       └── business/
-│   │   │   │   │                           ├── controller/
-│   │   │   │   │                           ├── service/
-│   │   │   │   │                           ├── repository/
-│   │   │   │   │                           ├── model/
-│   │   │   │   │                           └── dto/
-│   │   │   │   └── resources/
-│   │   │   │       └── application.properties
-│   │   │   └── test/
-│   │   └── pom.xml
-│   │
-│   ├── account/
-│   │   ├── src/
-│   │   │   ├── main/
-│   │   │   │   ├── java/
-│   │   │   │   │   └── com/
-│   │   │   │   │       └── microsoft/
-│   │   │   │   │           └── openai/
-│   │   │   │   │               └── samples/
-│   │   │   │   │                   └── assistant/
-│   │   │   │   │                       └── business/
-│   │   │   │   │                           ├── controller/
-│   │   │   │   │                           ├── service/
-│   │   │   │   │                           ├── repository/
-│   │   │   │   │                           ├── model/
-│   │   │   │   │                           └── dto/
-│   │   │   │   └── resources/
-│   │   │   │       └── application.properties
-│   │   │   └── test/
-│   │   └── pom.xml
-│   │
-│   ├── payment/
-│   │   ├── src/
-│   │   │   ├── main/
-│   │   │   │   ├── java/
-│   │   │   │   └── resources/
-│   │   │   └── test/
-│   │   └── pom.xml
-│   │
-│   ├── beneficiary/
-│   │   ├── src/
-│   │   └── pom.xml
-│   │
-│   ├── transaction/
-│   │   ├── src/
-│   │   └── pom.xml
-│   │
-│   ├── transaction-analysis/
-│   │   ├── src/
-│   │   └── pom.xml
-│   │
-│   └── risk-analysis/
-│       ├── src/
-│       └── pom.xml
+├── .devcontainer/
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
+├── app/
+│   │
+│   ├── business-api/
+│   │   ├── user/
+│   │   │   ├── src/
+│   │   │   │   ├── main/
+│   │   │   │   │   ├── java/
+│   │   │   │   │   └── resources/
+│   │   │   │   └── test/
+│   │   │   └── pom.xml
+│   │   │
+│   │   ├── account/
+│   │   │   ├── src/
+│   │   │   │   ├── main/
+│   │   │   │   │   ├── java/
+│   │   │   │   │   └── resources/
+│   │   │   │   └── test/
+│   │   │   └── pom.xml
+│   │   │
+│   │   ├── payment/
+│   │   ├── beneficiary/
+│   │   ├── transaction/
+│   │   ├── transaction-analysis/
+│   │   └── risk-analysis/
+│   │
+│   └── frontend/
 │
-├── database/
+├── data/
 │   ├── schema.sql
 │   └── data.sql
 │
@@ -131,10 +90,15 @@ AI-Assisted-Banking-Management-System/
 │   ├── api/
 │   └── screenshots/
 │
+├── infra/
+│
+├── .gitattributes
+├── .gitignore
+├── azure.yaml
 ├── pom.xml
 ├── README.md
-├── .gitignore
 └── LICENSE
+```
 
 
 # 🎯 Problem Statement
