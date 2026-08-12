@@ -8,13 +8,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public final class AccountRiskAnalyzer {
+public final class TransactionRiskAnalyzer {
 
 
 private static final int LOW_RISK_THRESHOLD = 20;
 private static final int MEDIUM_RISK_THRESHOLD = 50;
 
-private AccountRiskAnalyzer() {
+private TransactionRiskAnalyzer() {
     // Utility class.
 }
 

@@ -11,13 +11,13 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class AccountDiagnosticsMCPService {
+public class PaymentDiagnosticsMCPService {
 
 
-private final AccountService accountService;
+private final PaymentService paymentService;
 
-public AccountDiagnosticsMCPService(AccountService accountService) {
-    this.accountService = accountService;
+public PaymentDiagnosticsMCPService(PaymentService paymentService) {
+    this.paymentService = paymentService;
 }
 
 /*

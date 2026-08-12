@@ -9,13 +9,11 @@ import java.util.List;
 
 @Service
 public class AccountSummaryService {
+    private final AccountService accountService;
 
-
-private final AccountService accountService;
-
-public AccountSummaryService(AccountService accountService) {
-    this.accountService = accountService;
-}
+    public AccountSummaryService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
 /*
  * Optional business operation.
