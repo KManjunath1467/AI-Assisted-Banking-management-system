@@ -1,716 +1,350 @@
-# 🏦 AI-Assisted Banking Management System
+# AI Banking Management System
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk" alt="Java 17"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen?style=for-the-badge&logo=springboot" alt="Spring Boot"/>
-  <img src="https://img.shields.io/badge/Maven-Build%20Tool-C71A36?style=for-the-badge&logo=apachemaven" alt="Maven"/>
-  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql" alt="MySQL"/>
-  <img src="https://img.shields.io/badge/REST-API-009688?style=for-the-badge" alt="REST API"/>
-  <img src="https://img.shields.io/badge/AI-Assisted-6C5CE7?style=for-the-badge" alt="AI Assisted"/>
-</p>
+<div align="center">
 
-<p align="center">
-  <strong>An intelligent and modular banking platform that combines traditional banking services with AI-assisted interactions.</strong>
-</p>
+# 🤖 AI Banking Management System
 
-<p align="center">
-  <a href="#-overview">Overview</a> •
-  <a href="#-features">Features</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-technology-stack">Tech Stack</a> •
-  <a href="#-getting-started">Getting Started</a>
-</p>
+### Intelligent Multi-Agent Banking Assistant
+
+A conversational banking management system built with **Java, Spring Boot, React, and AI-powered multi-agent workflows**.
+
+The system provides a unified interface for interacting with banking services such as account information, transaction history, payment management, and related banking operations.
+
+</div>
 
 ---
 
-## 🌟 Overview
+## 📌 Overview
 
-**AI-Assisted Banking Management System** is a modular banking application designed to combine traditional banking operations with an AI-assisted interaction layer.
+The **AI Banking Management System** is a conversational banking platform designed to simplify common banking operations through an intelligent multi-agent architecture.
 
-The system brings together multiple banking capabilities such as:
+Instead of navigating through multiple banking screens and services, users can interact with the system through a natural-language conversational interface.
 
-- 👤 User Management
-- 🏦 Account Management
-- 💳 Payment Management
-- 👥 Beneficiary Management
-- 💸 Transaction Management
-- 📊 Transaction Analysis
-- ⚠️ Account Risk Analysis
-- 🤖 AI-Assisted Banking Operations
-- 🔌 Tool-Based AI Integration
-- 🌐 RESTful APIs
+The application interprets the user's request, identifies the appropriate banking operation, and routes the request to a specialized agent responsible for handling that particular task.
 
-The core idea is simple:
+The system is organized around three major banking capabilities:
 
-> **Let users interact naturally while keeping the underlying banking business logic structured, modular, and controlled.**
+* 🏦 **Account Management**
+* 📊 **Transaction Management**
+* 💳 **Payment Management**
 
-Instead of tightly coupling AI functionality with the database or business logic, the AI layer works as an assistance layer that connects user requests with appropriate backend operations.
+A central **Supervisor Agent** coordinates these specialized agents and determines which component should handle each incoming request.
 
 ---
-## 📁 Project Structure
 
-```text
-AI-Assisted-Banking-Management-System/
-│
-├── .devcontainer/
-│
-├── app/
-│   │
-│   ├── business-api/
-│   │   ├── user/
-│   │   │   ├── src/
-│   │   │   │   ├── main/
-│   │   │   │   │   ├── java/
-│   │   │   │   │   └── resources/
-│   │   │   │   └── test/
-│   │   │   └── pom.xml
-│   │   │
-│   │   ├── account/
-│   │   │   ├── src/
-│   │   │   │   ├── main/
-│   │   │   │   │   ├── java/
-│   │   │   │   │   └── resources/
-│   │   │   │   └── test/
-│   │   │   └── pom.xml
-│   │   │
-│   │   ├── payment/
-│   │   ├── beneficiary/
-│   │   ├── transaction/
-│   │   ├── transaction-analysis/
-│   │   └── risk-analysis/
-│   │
-│   └── frontend/
-│
-├── data/
-│   ├── schema.sql
-│   └── data.sql
-│
-├── docs/
-│   ├── architecture/
-│   ├── api/
-│   └── screenshots/
-│
-├── infra/
-│
-├── .gitattributes
-├── .gitignore
-├── azure.yaml
-├── pom.xml
-├── README.md
-└── LICENSE
+## ✨ Key Features
+
+* 🤖 **Multi-Agent Banking Architecture**
+* 🧠 **AI-powered request routing**
+* 🏦 Account information and balance management
+* 📊 Transaction history and transaction search
+* 💳 Payment and beneficiary management
+* 🔎 Tool-based interaction with backend services
+* 🧩 Modular Spring Boot microservices
+* 🌐 React-based conversational interface
+* 📁 Invoice and document processing support
+* 🔐 Separation between AI agents and business services
+* 🔄 REST API based service communication
+* 🛠️ Extensible agent and tool architecture
+
+---
+
+# 🏗️ System Architecture
+
+The application follows a **multi-agent architecture** in which each agent is responsible for a specific banking domain.
+
+```mermaid
+flowchart TD
+
+    User["👤 User"]
+
+    UI["🌐 React Frontend"]
+
+    Supervisor["🧠 Supervisor Agent"]
+
+    Account["🏦 Account Agent"]
+    Transaction["📊 Transaction Agent"]
+    Payment["💳 Payment Agent"]
+
+    AccountAPI["Account Service"]
+    TransactionAPI["Transaction Service"]
+    PaymentAPI["Payment Service"]
+
+    User --> UI
+    UI --> Supervisor
+
+    Supervisor --> Account
+    Supervisor --> Transaction
+    Supervisor --> Payment
+
+    Account --> AccountAPI
+    Transaction --> TransactionAPI
+    Payment --> PaymentAPI
+
+    AccountAPI --> AccountDB["Banking Data"]
+    TransactionAPI --> TransactionDB["Transaction Data"]
+    PaymentAPI --> PaymentDB["Payment Data"]
 ```
 
+---
 
-# 🎯 Problem Statement
+# 🧠 Multi-Agent Workflow
 
-Modern banking applications expose a large number of services through dashboards, forms, menus, and APIs.
+The system uses a supervisor-based workflow to coordinate different banking agents.
 
-As the number of available services increases, users may need to navigate through multiple workflows to perform simple operations.
+```mermaid
+flowchart TD
+
+    START(("Start"))
+
+    Supervisor["🧠 Supervisor Agent"]
+
+    Account["🏦 Account Agent"]
+    Transactions["📊 Transactions Agent"]
+    Payments["💳 Payments Agent"]
+
+    END(("Response"))
+
+    START --> Supervisor
+
+    Supervisor --> Account
+    Supervisor --> Transactions
+    Supervisor --> Payments
+
+    Account --> END
+    Transactions --> END
+    Payments --> END
+```
+
+The **Supervisor Agent** receives the user's request and determines which specialized agent is appropriate for the task.
 
 For example:
 
-```text
-Traditional Interaction
+| User Request                          | Responsible Agent  |
+| ------------------------------------- | ------------------ |
+| "What is my account balance?"         | Account Agent      |
+| "Show my recent transactions"         | Transactions Agent |
+| "What payment methods are available?" | Account Agent      |
+| "Show transactions from last month"   | Transactions Agent |
+| "I want to make a payment"            | Payments Agent     |
+| "Process this invoice"                | Payments Agent     |
 
-Login
-  ↓
-Open Account Section
-  ↓
-Select Account
-  ↓
-Open Transactions
-  ↓
-Select Required Information
-  ↓
-View Result
-```
-
-An AI-assisted interaction can simplify the process:
-
-```text
-User Request
-     ↓
-AI Assistance
-     ↓
-Identify Required Operation
-     ↓
-Banking Service
-     ↓
-Result
-```
-
-For example:
-
-> "Show me my recent transactions."
-
-The AI-assisted layer can identify that the request is related to transaction information and connect it to the appropriate transaction functionality.
+This approach keeps individual agents focused on their respective responsibilities instead of requiring one large agent to manage every banking operation.
 
 ---
 
-# 💡 Core Concept
+# 🤖 Agents
 
-The system follows a simple architectural principle:
+## 🧠 Supervisor Agent
 
-```text
-                    👤 USER
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ User / Frontend │
-              │    Interface    │
-              └────────┬────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ AI Assistance   │
-              │     Layer       │
-              └────────┬────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ Request / Tool  │
-              │    Routing      │
-              └────────┬────────┘
-                       │
-          ┌────────────┼────────────┐
-          ▼            ▼            ▼
-     ┌─────────┐  ┌─────────┐  ┌────────────┐
-     │ Account │  │ Payment │  │Transaction │
-     │ Service │  │ Service │  │  Service   │
-     └────┬────┘  └────┬────┘  └──────┬─────┘
-          │            │              │
-          └────────────┼──────────────┘
-                       ▼
-                ┌─────────────┐
-                │    MySQL    │
-                │  Database   │
-                └─────────────┘
-```
+The Supervisor Agent acts as the central coordinator of the application.
 
-This separation allows the AI interaction layer and banking business services to evolve independently.
+Its primary responsibilities include:
+
+* Understanding the user's request
+* Identifying the required banking operation
+* Selecting the appropriate specialized agent
+* Routing the request
+* Coordinating the final response
+
+The supervisor provides a single conversational entry point while allowing the underlying banking functionality to remain modular.
 
 ---
 
-# ✨ Features
+## 🏦 Account Agent
 
-<table>
-<tr>
-<td width="50%">
+The Account Agent handles operations related to banking account information.
 
-### 👤 User Management
-- User information
-- User identification
-- User-account relationships
-- User-specific operations
+### Responsibilities
 
-### 🏦 Account Management
-- Account retrieval
-- Account information
-- Account validation
-- Account relationships
-- Account analysis
+* Retrieve account information
+* Check account balance
+* Retrieve account identifiers
+* View registered payment methods
+* Retrieve beneficiary information
+* Handle account-related queries
 
-### 💳 Payment Management
-- Payment methods
-- Account identifiers
-- Payment workflows
-- Payment validation
-
-</td>
-
-<td width="50%">
-
-### 👥 Beneficiary Management
-- Beneficiary creation
-- Beneficiary information
-- Payment association
-- Beneficiary validation
-
-### 💸 Transaction Management
-- Transaction retrieval
-- Transaction history
-- Transaction processing
-- Transaction information
-
-### 🤖 AI Assistance
-- Request understanding
-- Operation selection
-- Tool-based interaction
-- Backend service integration
-
-</td>
-</tr>
-</table>
+The agent interacts with the Account Service through available tools and APIs.
 
 ---
 
-# 🤖 AI-Assisted Banking
+## 📊 Transactions Agent
 
-The AI layer is designed as an **assistance and interaction layer**, rather than replacing the underlying banking services.
+The Transactions Agent is responsible for transaction-related operations.
+
+### Responsibilities
+
+* Retrieve transaction history
+* Search transactions
+* Filter transaction records
+* Identify incoming and outgoing transactions
+* Retrieve transactions associated with specific recipients
+* Present transaction information conversationally
+
+This agent communicates with the transaction-related backend services to obtain the required information.
+
+---
+
+## 💳 Payments Agent
+
+The Payments Agent manages payment-related operations.
+
+### Responsibilities
+
+* Initiate payment workflows
+* Retrieve available payment methods
+* Retrieve beneficiary information
+* Validate payment-related information
+* Process payment requests
+* Check previous transactions
+* Support invoice-based payment workflows
+
+The payment workflow can interact with multiple backend services when completing a payment operation.
+
+---
+
+# 🔧 Backend Services
+
+The banking functionality is separated into independent backend services.
+
+This separation allows the AI layer to interact with business functionality without directly embedding business logic inside the agents.
+
+### Account Service
+
+Responsible for account-related operations.
+
+Typical responsibilities include:
+
+* Account lookup
+* Balance retrieval
+* Payment method retrieval
+* Beneficiary retrieval
+* Account information management
+
+---
+
+### Transaction Service
+
+Responsible for transaction-related operations.
+
+Typical responsibilities include:
+
+* Transaction retrieval
+* Transaction searching
+* Transaction filtering
+* Recipient-based transaction lookup
+* Transaction history management
+
+---
+
+### Payment Service
+
+Responsible for payment-related operations.
+
+Typical responsibilities include:
+
+* Payment submission
+* Payment processing
+* Payment status handling
+* Payment-related transaction creation
+
+---
+
+# 🔄 Request Processing Flow
 
 A typical request follows this flow:
 
 ```text
 User
- │
- ▼
-Natural Language Request
- │
- ▼
-Request Understanding
- │
- ▼
-Operation Identification
- │
- ▼
-Tool / Service Selection
- │
- ▼
-Business Service
- │
- ▼
-Data Processing
- │
- ▼
-Structured Response
-```
-### Example
-
-A user asks:
-
-```text
-"Show me my recent transactions."
-```
-
-The conceptual flow is:
-
-```text
-"Show me my recent transactions."
-                │
-                ▼
-        Request Analysis
-                │
-                ▼
-     Transaction Operation
-                │
-                ▼
-       Transaction Service
-                │
-                ▼
-        Transaction Data
-                │
-                ▼
-            Response
-```
-
-The AI layer helps determine **what operation is required**, while the backend remains responsible for executing the actual business functionality.
-
----
-
-# 🔌 Tool-Based AI Integration
-
-The project follows a controlled tool-based approach for connecting AI-assisted requests with backend functionality.
-
-Instead of allowing an AI component to directly access the database:
-
-```text
-❌ Direct Database Access
-
-AI
- │
- └──────────────► Database
-```
-
-the system follows a controlled flow:
-
-```text
-✅ Controlled Service Access
-
-AI
- │
- ▼
-Tool / Operation
- │
- ▼
-Business Service
- │
- ▼
-Validation
- │
- ▼
-Data Layer
- │
- ▼
-Database
-```
-
-This architecture provides:
-
-- 🔒 Controlled access
-- 🧩 Clear separation of responsibilities
-- ♻️ Reusable services
-- 🛠️ Easier testing
-- 📈 Better extensibility
-- 🔌 Easier AI integration
-
----
-
-# 🏗️ Architecture
-
-The application follows a modular layered architecture.
-
-```text
-┌─────────────────────────────────────────────┐
-│                  CLIENT                     │
-│            Web / Application UI             │
-└──────────────────────┬──────────────────────┘
+  │
+  ▼
+React Frontend
+  │
+  ▼
+Supervisor Agent
+  │
+  ├──────────────► Account Agent
+  │                    │
+  │                    ▼
+  │               Account Service
+  │
+  ├──────────────► Transactions Agent
+  │                    │
+  │                    ▼
+  │              Transaction Service
+  │
+  └──────────────► Payments Agent
                        │
                        ▼
-┌─────────────────────────────────────────────┐
-│             AI ASSISTANCE LAYER             │
-│                                             │
-│  Request Understanding                      │
-│  Operation Selection                        │
-│  Tool Selection                             │
-│  Response Coordination                     │
-└──────────────────────┬──────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────┐
-│             BUSINESS SERVICES               │
-│                                             │
-│ User • Account • Payment • Transaction     │
-│ Beneficiary • Risk Analysis                 │
-└──────────────────────┬──────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────┐
-│                DATA ACCESS                  │
-│                                             │
-│ Repository / Persistence                    │
-└──────────────────────┬──────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────┐
-│                   MYSQL                     │
-│                  DATABASE                   │
-└─────────────────────────────────────────────┘
+                  Payment Service
 ```
 
----
-
-# 🧱 Backend Architecture
-
-The backend follows a layered architecture:
-
-```text
-HTTP Request
-     │
-     ▼
-┌───────────────┐
-│   Controller  │
-└───────┬───────┘
-        │
-        ▼
-┌───────────────┐
-│    Service    │
-└───────┬───────┘
-        │
-        ▼
-┌───────────────┐
-│ Business Logic│
-└───────┬───────┘
-        │
-        ▼
-┌───────────────┐
-│ Repository /  │
-│ Data Access   │
-└───────┬───────┘
-        │
-        ▼
-┌───────────────┐
-│     MySQL     │
-└───────────────┘
-```
-
-### Controller Layer
-
-Responsible for:
-
-- HTTP request handling
-- Request mapping
-- Input processing
-- Calling appropriate services
-- Returning responses
-
-### Service Layer
-
-Responsible for:
-
-- Business logic
-- Validation
-- Processing
-- Coordination between components
-
-### Data Access Layer
-
-Responsible for:
-
-- Database interaction
-- Persistence
-- Retrieving application data
+The architecture separates **conversation handling**, **agent reasoning**, and **business operations** into different layers.
 
 ---
 
-# 🏦 Core Banking Modules
-
-## 👤 User Module
-
-The User module manages user-related functionality and relationships between users and their banking resources.
-
-Responsibilities include:
-
-- User identification
-- User information
-- User-account relationships
-- User-specific operations
-
----
-
-## 🏦 Account Module
-
-The Account module handles core account-related functionality.
-
-Responsibilities include:
-
-- Account retrieval
-- Account information
-- Account validation
-- Account-user relationships
-- Account operations
-- Account analysis
-
----
-
-## 💳 Payment Module
-
-The Payment module provides payment-related functionality.
-
-It works with concepts such as:
-
-- Payment methods
-- Account identifiers
-- Payment requests
-- Payment validation
-- Payment workflows
-
----
-
-## 👥 Beneficiary Module
-
-The Beneficiary module manages beneficiary-related information used within payment workflows.
-
-Responsibilities include:
-
-- Creating beneficiaries
-- Managing beneficiary information
-- Associating beneficiaries with payment operations
-- Validating beneficiary information
-
----
-
-## 💸 Transaction Module
-
-The Transaction module manages financial transaction functionality.
-
-Responsibilities include:
-
-- Transaction retrieval
-- Transaction history
-- Transaction processing
-- Transaction information
-- Transaction-related APIs
-
----
-
-# 📊 Transaction Analysis
-
-The system includes a dedicated transaction analysis component.
-
-Instead of mixing analysis logic with basic transaction operations, transaction analysis is separated into its own component.
-
-```text
-Transaction Records
-        │
-        ▼
-Transaction Analyzer
-        │
-   ┌────┼────┐
-   ▼    ▼    ▼
-Patterns Activity Indicators
-```
-
-This architecture provides a foundation for future functionality such as:
-
-- Spending categorization
-- Transaction trends
-- Transaction frequency analysis
-- Unusual transaction detection
-- Financial summaries
-
----
-
-# ⚠️ Account Risk Analysis
-
-The project contains a dedicated account risk analysis component.
-
-The purpose is to keep account-level analysis separate from ordinary account operations.
-
-```text
-                 Account Service
-                       │
-            ┌──────────┴──────────┐
-            ▼                     ▼
-    Account Operations      Risk Analyzer
-                                  │
-                                  ▼
-                           Risk Indicators
-```
-
-This separation allows additional analytical capabilities to be introduced without heavily modifying the core account service.
-
----
-
-# 🗃️ Database Architecture
-
-The system uses **MySQL** as its relational database.
-
-The main relationships can be represented conceptually as:
-
-```text
-                    USERS
-                      │
-                      │
-                      ▼
-                   ACCOUNTS
-                  /        \
-                 /          \
-                ▼            ▼
-        TRANSACTIONS    PAYMENT METHODS
-                │
-                │
-                ▼
-        TRANSACTION ANALYSIS
-
-                    │
-                    ▼
-              BENEFICIARIES
-```
-
-A relational database is suitable for the system because banking entities have well-defined relationships and structured data.
-
----
-
-# 🌐 REST API Architecture
-
-The application exposes banking functionality through REST APIs.
-
-```text
-┌──────────────┐
-│    Client    │
-└──────┬───────┘
-       │ HTTP / JSON
-       ▼
-┌──────────────┐
-│ REST API     │
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ Controllers  │
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ Services     │
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ Data Layer   │
-└──────┬───────┘
-       ▼
-┌──────────────┐
-│ MySQL        │
-└──────────────┘
-```
-
-### API Categories
-
-| API | Responsibility |
-|---|---|
-| 👤 User API | User information and relationships |
-| 🏦 Account API | Account operations |
-| 💳 Payment API | Payment-related operations |
-| 👥 Beneficiary API | Beneficiary management |
-| 💸 Transaction API | Transaction operations |
-| 📊 Analysis API | Transaction/account analysis |
-
----
-
-# 🛠️ Technology Stack
+# 🧩 Technology Stack
 
 ## Backend
 
-| Technology | Purpose |
-|---|---|
-| ☕ **Java 17** | Primary backend programming language |
-| 🌱 **Spring Boot** | Backend framework |
-| 🌐 **Spring Web** | REST API development |
-| 📦 **Maven** | Build and dependency management |
-
-## Database
-
-| Technology | Purpose |
-|---|---|
-| 🐬 **MySQL** | Relational database and persistence |
-
-## API & Documentation
-
-| Technology | Purpose |
-|---|---|
-| 🌐 **REST API** | Client-server communication |
-| 📖 **OpenAPI / Swagger** | API documentation and testing |
-| 🔗 **JSON** | Data exchange format |
-
-## AI
-
-| Component | Purpose |
-|---|---|
-| 🤖 **AI Assistance Layer** | Natural-language interaction |
-| 🔌 **Tool-Based Integration** | Connect AI requests with backend operations |
-| 🧠 **Request Processing** | Identify required banking operations |
-
-## Development
-
-| Tool | Purpose |
-|---|---|
-| 🔧 **Git** | Version control |
-| 🐙 **GitHub** | Source code hosting |
-| 🧪 **Postman** | API testing |
-| 🏗️ **Maven** | Build and dependency management |
+| Technology               | Purpose                                  |
+| ------------------------ | ---------------------------------------- |
+| ☕ Java                   | Core programming language                |
+| 🌱 Spring Boot           | Backend application framework            |
+| 🔗 REST APIs             | Communication between services           |
+| 🧠 LangChain4j           | AI agent and tool integration            |
+| 🔄 LangGraph4j           | Agent workflow orchestration             |
+| 🔌 MCP / Tool Interfaces | Exposing backend functionality to agents |
+| 📦 Maven                 | Dependency and project management        |
 
 ---
 
-# 📁 Project Structure
+## Frontend
+
+| Technology           | Purpose                             |
+| -------------------- | ----------------------------------- |
+| ⚛️ React             | User interface                      |
+| 💬 Conversational UI | Natural-language interaction        |
+| 📤 File Upload       | Invoice/document submission         |
+| 🌐 REST Integration  | Communication with backend services |
+
+---
+
+## AI Layer
+
+The AI layer is responsible for:
+
+* Natural-language understanding
+* Intent identification
+* Agent selection
+* Tool selection
+* Multi-agent workflow execution
+* Conversational responses
+
+The multi-agent approach allows different banking operations to be implemented independently while maintaining a unified user experience.
+
+---
+
+# 📂 Project Structure
 
 ```text
-AI-Assisted-Banking-management-system/
+AI-Banking-Management-System/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── copilot/
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   └── pom.xml
 │
 ├── business-api/
 │   │
 │   ├── account/
 │   │   ├── src/
-│   │   │   └── main/
-│   │   │       └── java/
-│   │   │           └── ...
 │   │   └── pom.xml
 │   │
 │   ├── payment/
@@ -721,123 +355,113 @@ AI-Assisted-Banking-management-system/
 │       ├── src/
 │       └── pom.xml
 │
-├── frontend/
+├── docs/
+│   ├── architecture/
+│   └── assets/
 │
 ├── pom.xml
 │
 └── README.md
 ```
 
-> The project structure may evolve as additional banking and AI-assisted capabilities are introduced.
-
 ---
 
-# 🔐 Security Architecture
+# 🔌 Tool-Based Architecture
 
-Security is an important consideration for banking applications.
+The AI agents do not directly manipulate backend data.
 
-The architecture keeps AI functionality separated from core business operations.
+Instead, agents interact with defined tools and APIs exposed by the business services.
 
-```text
-AI
- │
- ▼
-Controlled Tool
- │
- ▼
-Business Service
- │
- ▼
-Authorization / Validation
- │
- ▼
-Data Layer
- │
- ▼
-Database
-```
-
-For a production banking platform, important security mechanisms would include:
-
-- 🔐 Authentication
-- 🛡️ Authorization
-- 👥 Role-based access control
-- 🔑 Secure credential management
-- 🔒 Encryption
-- 📝 Audit logging
-- 🚦 Rate limiting
-- 🧹 Input validation
-- 🔎 Fraud detection
-- 🛡️ Sensitive-data protection
-
-### AI Security
-
-AI-assisted systems introduce additional security considerations such as:
-
-- Prompt injection protection
-- Tool-level authorization
-- Sensitive-data filtering
-- Controlled tool access
-- Transaction confirmation
-- AI request auditing
-
----
-
-# 🧪 Testing
-
-The application can be tested at multiple levels.
-
-### Unit Testing
-
-Individual services and components can be tested independently.
-
-Examples:
-
-- Account service
-- Transaction service
-- Payment service
-- Risk analysis
-- Utility components
-
-### Integration Testing
-
-Verify communication between:
-
-```text
-Controller
-    ↓
-Service
-    ↓
-Repository
-    ↓
-Database
-```
-
-### API Testing
-
-REST endpoints can be tested using:
-
-- Postman
-- Swagger UI
-- cURL
-
-### AI Workflow Testing
-
-AI-assisted workflows can be tested by evaluating:
+For example:
 
 ```text
 User Request
-     ↓
-Request Understanding
-     ↓
-Operation Selection
-     ↓
+     │
+     ▼
+Supervisor Agent
+     │
+     ▼
+Specialized Agent
+     │
+     ▼
 Tool Selection
-     ↓
-Backend Execution
-     ↓
-Response
+     │
+     ▼
+Business API
+     │
+     ▼
+Banking Data
+     │
+     ▼
+Agent Response
+     │
+     ▼
+User
 ```
+
+This separation provides a cleaner architecture and makes it easier to add additional banking capabilities in the future.
+
+---
+
+# 📄 Invoice Processing
+
+The payment workflow can support document-based payment scenarios.
+
+A user can provide an invoice or payment document through the conversational interface.
+
+The general workflow is:
+
+```text
+Invoice / Document
+        │
+        ▼
+Document Processing
+        │
+        ▼
+Extract Relevant Information
+        │
+        ▼
+Payment Agent
+        │
+        ▼
+Validate Payment Details
+        │
+        ▼
+Payment Service
+        │
+        ▼
+Payment Result
+```
+
+This allows document information to become part of the conversational payment workflow rather than requiring users to manually enter every piece of information.
+
+---
+
+# 🛠️ Core Design Principles
+
+### 1. Modular Architecture
+
+Each banking domain is separated into its own service and agent.
+
+### 2. Specialized Agents
+
+Agents focus on specific responsibilities rather than attempting to perform every operation.
+
+### 3. Centralized Routing
+
+The Supervisor Agent provides a single entry point for user requests.
+
+### 4. Service Separation
+
+Business logic remains within backend services while AI agents interact through defined interfaces.
+
+### 5. Extensibility
+
+New agents and banking services can be added without redesigning the entire application.
+
+### 6. Conversational Interaction
+
+Users can interact with banking functionality using natural-language requests.
 
 ---
 
@@ -845,520 +469,249 @@ Response
 
 ## Prerequisites
 
-Make sure the following are installed:
+Make sure the following tools are installed:
 
-- Java 17+
-- Maven
-- MySQL
-- Git
+* Java 17 or later
+* Maven 3.8+
+* Node.js
+* npm
+* Git
+* Docker *(if required by the local setup)*
 
-Verify Java:
+---
 
-```bash
-java -version
-```
-
-Verify Maven:
+## 1. Clone the Project
 
 ```bash
-mvn -version
-```
-
-Verify Git:
-
-```bash
-git --version
+git clone <repository-url>
+cd AI-Banking-Management-System
 ```
 
 ---
 
-## 1. Clone the Repository
+## 2. Build the Backend
 
-```bash
-git clone https://github.com/KManjunath1467/AI-Assisted-Banking-management-system.git
-```
-
-```bash
-cd AI-Assisted-Banking-management-system
-```
-
----
-
-## 2. Configure MySQL
-
-Create a database:
-
-```sql
-CREATE DATABASE banking_management;
-```
-
-Configure the database connection in the appropriate application configuration.
-
-Example:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/banking_management
-spring.datasource.username=YOUR_USERNAME
-spring.datasource.password=YOUR_PASSWORD
-```
-
-> ⚠️ Never commit real passwords, API keys, tokens, or other secrets to GitHub.
-
----
-
-## 3. Build the Project
+From the project root:
 
 ```bash
 mvn clean install
 ```
 
-This performs:
-
-```text
-Clean
-  ↓
-Dependency Resolution
-  ↓
-Compilation
-  ↓
-Testing
-  ↓
-Packaging
-```
-
 ---
 
-## 4. Run the Application
+## 3. Start the Backend Services
+
+Start the required Spring Boot services according to the project configuration.
+
+For an individual service:
 
 ```bash
 mvn spring-boot:run
 ```
 
-Alternatively, run the generated JAR:
+---
+
+## 4. Start the Frontend
+
+Navigate to the frontend directory:
 
 ```bash
-java -jar target/application.jar
+cd frontend
 ```
 
-The exact JAR name depends on the module configuration.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm start
+```
 
 ---
 
-# 📖 API Documentation
+# 💬 Example Interactions
 
-If OpenAPI / Swagger is enabled, the API documentation provides an interactive interface for exploring the available endpoints.
-
-Swagger can be used to:
-
-- View available APIs
-- Inspect request parameters
-- View response structures
-- Test endpoints
-- Understand API contracts
-
----
-
-# 🔄 Development Workflow
+### Account Information
 
 ```text
-       Requirement
-            │
-            ▼
-          Design
-            │
-            ▼
-       Implementation
-            │
-            ▼
-       Unit Testing
-            │
-            ▼
-        API Testing
-            │
-            ▼
-     Integration Testing
-            │
-            ▼
-        Code Review
-            │
-            ▼
-           Build
-            │
-            ▼
-        Deployment
+User:
+What is my current account balance?
+
+Assistant:
+The Account Agent retrieves the relevant account information
+and provides the balance through the conversational interface.
+```
+
+### Transaction History
+
+```text
+User:
+Show me my recent transactions.
+
+Assistant:
+The request is routed to the Transactions Agent,
+which retrieves the relevant transaction records.
+```
+
+### Payment
+
+```text
+User:
+I want to make a payment.
+
+Assistant:
+The request is routed to the Payments Agent,
+which coordinates the required payment operations.
+```
+
+### Invoice Payment
+
+```text
+User:
+I want to pay this invoice.
+
+User:
+[Uploads invoice]
+
+Assistant:
+The payment workflow processes the document,
+extracts the relevant information, and continues
+with the payment operation.
 ```
 
 ---
 
-# 🌿 Git Workflow
+# 🔐 Security Considerations
 
-Create a feature branch:
+The system is structured so that AI agents operate through controlled tools and backend APIs rather than directly accessing underlying data stores.
 
-```bash
-git checkout -b feature/new-feature
-```
+Important security considerations for a production banking application include:
 
-Make your changes and stage them:
+* Authentication
+* Authorization
+* Secure API communication
+* Input validation
+* Secure credential management
+* Sensitive-data protection
+* Transaction authorization
+* Audit logging
+* Rate limiting
+* Secure document processing
 
-```bash
-git add .
-```
-
-Commit:
-
-```bash
-git commit -m "Add new feature"
-```
-
-Push:
-
-```bash
-git push origin feature/new-feature
-```
-
-Then create a Pull Request for review.
-
----
-
-# 🌟 Advantages
-
-### 🧩 Modular
-
-Banking capabilities are separated into dedicated components.
-
-### 🔌 Extensible
-
-New banking services and AI-assisted operations can be added without redesigning the entire application.
-
-### 🧠 AI-Assisted
-
-Natural-language interaction can simplify access to banking functionality.
-
-### 🔒 Controlled
-
-AI functionality can interact with controlled backend operations instead of having unrestricted database access.
-
-### ♻️ Reusable
-
-Backend services can be reused by different interfaces and clients.
-
-### 🏗️ Maintainable
-
-Layered architecture keeps controllers, business logic, and data access separated.
-
-### 🌐 API-Driven
-
-REST APIs allow different clients and services to communicate with the backend.
+The project is intended as a software architecture and AI-agent demonstration and should not be treated as a production banking platform without additional security controls and compliance requirements.
 
 ---
 
 # 🔮 Future Enhancements
 
-## 🤖 Advanced AI Assistance
+The architecture can be extended with additional banking capabilities such as:
 
-Future versions could introduce:
+* 📈 Financial insights
+* 💰 Budget tracking
+* 🔔 Transaction notifications
+* 📊 Spending analysis
+* 💳 Card management
+* 🏦 Loan information
+* 📅 Scheduled payments
+* 🔎 Fraud detection
+* 📱 Mobile banking interface
+* 🔐 Advanced authentication
+* 📑 Financial report generation
 
-- Context-aware conversations
-- Multi-turn conversations
-- Improved request understanding
-- Personalized assistance
-- Voice-based banking
-- Multi-step banking workflows
+Additional specialized agents can also be introduced as the system grows.
 
----
-
-## 📊 Advanced Financial Analytics
-
-Potential improvements include:
-
-```text
-Transaction Data
-       │
-       ▼
-Analytics Engine
-       │
-   ┌───┼────┐
-   ▼   ▼    ▼
-Spending Trends Anomalies
-Analysis
-```
-
-Possible features:
-
-- Spending categorization
-- Monthly summaries
-- Financial trends
-- Transaction anomaly detection
-- Budget analysis
-- Financial insights
-
----
-
-## 🔐 Advanced Security
-
-Potential improvements:
-
-- Multi-factor authentication
-- Role-based access control
-- Fine-grained permissions
-- Secure token management
-- Audit trails
-- Fraud detection
-- Transaction confirmation
-- Device verification
-
----
-
-## 📱 Enhanced User Experience
-
-Future UI improvements could include:
-
-- Responsive banking dashboard
-- Conversational interface
-- Voice interaction
-- Real-time notifications
-- Interactive transaction analytics
-- Personalized dashboards
-
----
-
-## ☁️ Deployment
-
-The application can be extended toward modern deployment practices using:
-
-- 🐳 Docker
-- 🔄 CI/CD pipelines
-- ☁️ Cloud deployment
-- 📦 Containerization
-- 📊 Application monitoring
-- 📝 Centralized logging
-
----
-
-# 🧠 Design Principles
-
-The project follows several software engineering principles.
-
-### Separation of Concerns
-
-Each component focuses on a specific responsibility.
-
-### Loose Coupling
-
-Services communicate through clearly defined boundaries.
-
-### High Cohesion
-
-Related functionality is grouped into appropriate modules.
-
-### Reusability
-
-Common functionality is organized into reusable services and components.
-
-### Extensibility
-
-New functionality can be introduced without major structural changes.
-
-### Maintainability
-
-Clear separation between layers simplifies debugging and future development.
-
----
-
-# 🏦 End-to-End Example
-
-Consider the request:
-
-> **"Show me my recent account activity."**
-
-The system can conceptually process the request as:
+For example:
 
 ```text
-                 USER
-                   │
-                   ▼
-        "Show my recent activity"
-                   │
-                   ▼
-          AI Assistance Layer
-                   │
-                   ▼
-        Identify Transaction Intent
-                   │
-                   ▼
-        Select Transaction Operation
-                   │
-                   ▼
-          Transaction Service
-                   │
-                   ▼
-          Transaction Repository
-                   │
-                   ▼
-               MySQL
-                   │
-                   ▼
-          Transaction Analyzer
-                   │
-                   ▼
-              RESPONSE
-```
-
-This demonstrates the separation between:
-
-**User Interaction → AI Assistance → Banking Services → Data → Response**
-
----
-
-# 📚 Use Cases
-
-| Use Case | Description |
-|---|---|
-| 👤 User Information | Retrieve and manage user information |
-| 🏦 Account Information | Access account-related information |
-| 💳 Payment Workflow | Handle payment-related operations |
-| 👥 Beneficiary Management | Manage payment beneficiaries |
-| 💸 Transaction History | Retrieve transaction information |
-| 📊 Transaction Analysis | Analyze transaction activity |
-| ⚠️ Risk Analysis | Analyze account-related indicators |
-| 🤖 AI Assistance | Interact with banking functionality through AI-assisted requests |
-
----
-
-# 🎓 Learning Outcomes
-
-This project provides practical experience with:
-
-### Backend Development
-- Java
-- Spring Boot
-- REST APIs
-- Dependency Injection
-- Layered architecture
-
-### Database Development
-- MySQL
-- Relational data modeling
-- Data persistence
-- Entity relationships
-
-### AI Integration
-- AI-assisted application design
-- Request interpretation
-- Tool-based interaction
-- AI/backend integration
-
-### Software Architecture
-- Modular architecture
-- Separation of concerns
-- Service-oriented design
-- API-driven development
-
-### Development Practices
-- Git
-- GitHub
-- Maven
-- API testing
-- Debugging
-- Documentation
-
----
-
-# 🔭 Future Vision
-
-The long-term vision is to evolve the platform toward a more intelligent banking assistance experience.
-
-```text
-                         👤 USER
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Conversational      │
-                 │ Banking Assistant   │
-                 └──────────┬──────────┘
-                            │
-            ┌───────────────┼───────────────┐
-            ▼               ▼               ▼
-       🏦 Account       💳 Payment      💸 Transaction
-       Assistant        Assistant        Assistant
-            │               │               │
-            └───────────────┼───────────────┘
-                            ▼
-                   Banking Services
-                            │
-                            ▼
-                       Data Layer
-```
-
-Potential future capabilities include:
-
-- 🤖 Conversational banking
-- 🎙️ Voice-based assistance
-- 📊 Advanced financial analytics
-- 🧠 Personalized financial insights
-- 🔎 Intelligent anomaly detection
-- 📋 Automated financial summaries
-- 🔐 Secure multi-step workflows
-
----
-
-# ⚠️ Disclaimer
-
-This project is developed for **educational, experimental, and software engineering purposes**.
-
-It is **not intended to process real customer banking information or replace production banking infrastructure**.
-
-A production banking platform would require extensive:
-
-- Authentication
-- Authorization
-- Encryption
-- Fraud prevention
-- Regulatory compliance
-- Audit logging
-- Data privacy controls
-- Transaction security
-- High availability
-- Disaster recovery
-- Infrastructure security
-
----
-
-# 👨‍💻 Author
-
-## K Manjunath
-
-🎓 **Ramaiah Institute of Technology**
-
-💻 **GitHub:**  
-https://github.com/KManjunath1467
-
----
-
-# ⭐ Support the Project
-
-If you find this project interesting, consider giving the repository a ⭐.
-
-The project demonstrates how:
-
-```text
-AI Assistance
-      +
-Modular Backend
-      +
-REST APIs
-      +
-Database Management
-      +
-Software Architecture
-      ↓
-Intelligent Banking Platform
+                   Supervisor
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+     Account      Transactions     Payments
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+              Future Specialized Agents
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+      Fraud        Analytics        Support
+      Agent          Agent           Agent
 ```
 
 ---
 
-<p align="center">
-  <strong>🏦 AI-Assisted Banking Management System</strong>
-  <br/>
-  <sub>Building smarter interactions on top of structured banking services.</sub>
-</p>
+# 📊 Architecture Summary
+
+| Layer                   | Responsibility                               |
+| ----------------------- | -------------------------------------------- |
+| 🌐 Frontend             | User interaction and conversation            |
+| 🧠 Supervisor           | Request understanding and routing            |
+| 🤖 Specialized Agents   | Domain-specific banking operations           |
+| 🔧 Tools                | Controlled access to business functionality  |
+| 🌱 Spring Boot Services | Banking business logic                       |
+| 🗄️ Data Layer          | Account, transaction and payment information |
+
+---
+
+# 🎯 Project Objective
+
+The primary objective of this project is to demonstrate how **generative AI, multi-agent workflows, and modular backend services** can be combined to create an intelligent banking management interface.
+
+Rather than building a single large AI component, the system divides banking functionality into specialized agents and services.
+
+This makes the architecture easier to understand, extend, test, and maintain while providing users with a unified conversational experience.
+
+---
+
+# 🧪 Development & Testing
+
+The application can be tested by sending different categories of banking requests through the conversational interface.
+
+Example test categories:
+
+```text
+Account
+ ├── Balance
+ ├── Account details
+ ├── Payment methods
+ └── Beneficiaries
+
+Transactions
+ ├── Recent transactions
+ ├── Transaction search
+ ├── Recipient search
+ └── Transaction history
+
+Payments
+ ├── Payment request
+ ├── Payment details
+ ├── Invoice processing
+ └── Payment confirmation
+```
+
+Testing these categories helps verify that requests are routed to the appropriate agent and that the corresponding backend services are invoked correctly.
+
+---
+
+# 📌 Conclusion
+
+The **AI Banking Management System** demonstrates a modular approach to building conversational banking applications using AI agents and backend microservices.
+
+The combination of a **Supervisor Agent**, specialized banking agents, tool-based service interaction, Spring Boot APIs, and a React interface provides a foundation for building intelligent financial applications.
+
+The architecture is designed to remain extensible, allowing additional agents, services, and banking capabilities to be incorporated as the application evolves.
+
+---
+
+<div align="center">
+
+### 🤖 AI Banking Management System
+
+**Conversational Banking • Multi-Agent Architecture • Modular Services**
+
+</div>
