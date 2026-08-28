@@ -81,4 +81,3 @@ components:
         - paymentMethodId
         - amount
         - timestamp
-```

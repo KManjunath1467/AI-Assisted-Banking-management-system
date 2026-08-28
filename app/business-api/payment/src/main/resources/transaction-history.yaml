@@ -1,4 +1,3 @@
-```yaml
 openapi: 3.0.3
 
 info:
@@ -123,4 +122,3 @@ components:
           type: string
           format: date-time
           description: Date and time at which the transaction occurred.
-```

@@ -1,28 +1,28 @@
 package com.microsoft.openai.samples.assistant.business.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Beneficiary(
-@JsonProperty("id") String id,
-@JsonProperty("fullName") String fullName,
-@JsonProperty("bankCode") String bankCode,
-@JsonProperty("bankName") String bankName
+public record PaymentMethod(
+        @JsonProperty("id")
+        String id,
+
+        @JsonProperty("type")
+        String type,
+
+        @JsonProperty("activationDate")
+        String activationDate,
+
+        @JsonProperty("expirationDate")
+        String expirationDate,
+
+        @JsonProperty("availableBalance")
+        String availableBalance,
+
+        @JsonProperty("cardNumber")
+        String cardNumber
 ) {
-
-/*
- * Optional helper method.
- * Use only when a compact display value is required.
- * It does not affect JSON serialization or existing API behavior.
- */
-public String getDisplayName() {
-    if (bankName == null || bankName.isBlank()) {
-        return fullName;
-    }
-
-    return fullName + " - " + bankName;
-}
-
-
 }
