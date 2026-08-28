@@ -1,95 +1,117 @@
 package com.microsoft.openai.samples.assistant.business;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
 
-    private Map<String,List<Transaction>> lastTransactions= new HashMap<>();
-    private Map<String,List<Transaction>> allTransactions= new HashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
 
-     public TransactionService(){
+    private final Map<String, List<Transaction>> lastTransactions = new ConcurrentHashMap<>();
+    private final Map<String, List<Transaction>> allTransactions = new ConcurrentHashMap<>();
 
-         lastTransactions.put("1010",new ArrayList<> (Arrays.asList(
-                new Transaction("11", "Payment of the bill 334398", "outcome","acme", "0001", "1010", "BankTransfer", "100.00", "2024-4-01T12:00:00Z"),
-                new Transaction("22", "Payment of the bill 4613","outcome", "contoso", "0002", "1010", "CreditCard", "200.00", "2024-3-02T12:00:00Z"),
-                new Transaction("33", "Payment of the bill 724563","outcome", "duff", "0003", "1010", "BankTransfer", "300.00", "2023-10-03T12:00:00Z"),
-                new Transaction("43", "Payment of the bill 8898943","outcome", "wayne enterprises", "0004", "1010", "DirectDebit", "400.00", "2023-8-04T12:00:00Z"),
-                new Transaction("53", "Payment of the bill 19dee","outcome", "oscorp", "0005", "1010", "BankTransfer", "500.00", "2023-4-05T12:00:00Z"))
-         ));
+    public TransactionService() {
+        initializeTransactions();
+    }
 
+    private void initializeTransactions() {
+        // Account 1000 (Alice User)
+        List<Transaction> list1000 = new CopyOnWriteArrayList<>(Arrays.asList(
+                new Transaction("tx-1001", "Payment of electricity bill #9921", "outcome", "Acme Power", "0001", "1000", "BankTransfer", "145.50", "2024-04-10T10:15:00Z"),
+                new Transaction("tx-1002", "Grocery shopping supermarket", "outcome", "Whole Foods", "0002", "1000", "CreditCard", "84.20", "2024-04-08T16:30:00Z"),
+                new Transaction("tx-1003", "Internet Fiber Subscription", "outcome", "Contoso Telecom", "0003", "1000", "DirectDebit", "65.00", "2024-04-01T09:00:00Z"),
+                new Transaction("tx-1004", "Salary Deposit", "income", "Tech Corp", "0004", "1000", "Transfer", "3500.00", "2024-03-30T08:00:00Z"),
+                new Transaction("tx-1005", "Coffee & Bakery", "outcome", "Starbucks", "0005", "1000", "CreditCard", "12.75", "2024-03-28T11:20:00Z")
+        ));
+        allTransactions.put("1000", list1000);
+        lastTransactions.put("1000", new CopyOnWriteArrayList<>(list1000.subList(0, Math.min(5, list1000.size()))));
 
-         allTransactions.put("1010",new ArrayList<>(Arrays.asList(
-                new Transaction("11", "payment of bill id with 0001","outcome", "acme", "A012TABTYT156!", "1010", "BankTransfer", "100.00", "2024-4-01T12:00:00Z"),
-                new Transaction("21", "Payment of the bill 4200","outcome", "acme", "0002", "1010", "BankTransfer", "200.00", "2024-1-02T12:00:00Z"),
-                new Transaction("31", "Payment of the bill 3743","outcome", "acme", "0003", "1010", "DirectDebit", "300.00", "2023-10-03T12:00:00Z"),
-                new Transaction("41", "Payment of the bill 8921","outcome", "acme", "0004", "1010", "Transfer", "400.00", "2023-8-04T12:00:00Z"),
-                new Transaction("51", "Payment of the bill 7666","outcome", "acme", "0005", "1010", "CreditCard", "500.00", "2023-4-05T12:00:00Z"),
+        // Account 1010 (Bob User)
+        List<Transaction> list1010 = new CopyOnWriteArrayList<>(Arrays.asList(
+                new Transaction("11", "Payment of the bill 334398", "outcome", "acme", "0001", "1010", "BankTransfer", "100.00", "2024-04-01T12:00:00Z"),
+                new Transaction("22", "Payment of the bill 4613", "outcome", "contoso", "0002", "1010", "CreditCard", "200.00", "2024-03-02T12:00:00Z"),
+                new Transaction("33", "Payment of the bill 724563", "outcome", "duff", "0003", "1010", "BankTransfer", "300.00", "2023-10-03T12:00:00Z"),
+                new Transaction("43", "Payment of the bill 8898943", "outcome", "wayne enterprises", "0004", "1010", "DirectDebit", "400.00", "2023-08-04T12:00:00Z"),
+                new Transaction("53", "Payment of the bill 19dee", "outcome", "oscorp", "0005", "1010", "BankTransfer", "500.00", "2023-04-05T12:00:00Z"),
+                new Transaction("12", "Payment of the bill 5517", "outcome", "contoso", "0001", "1010", "CreditCard", "100.00", "2024-03-01T12:00:00Z"),
+                new Transaction("21", "Payment of the bill 4200", "outcome", "acme", "0002", "1010", "BankTransfer", "200.00", "2024-01-02T12:00:00Z")
+        ));
+        allTransactions.put("1010", list1010);
+        lastTransactions.put("1010", new CopyOnWriteArrayList<>(list1010.subList(0, Math.min(5, list1010.size()))));
 
-                new Transaction("12", "Payment of the bill 5517","outcome", "contoso", "0001", "1010", "CreditCard", "100.00", "2024-3-01T12:00:00Z"),
-                new Transaction("22", "Payment of the bill 682222","outcome", "contoso", "0002", "1010", "CreditCard", "200.00", "2023-1-02T12:00:00Z"),
-                new Transaction("32", "Payment of the bill 94112","outcome", "contoso", "0003", "1010", "Transfer", "300.00", "2022-10-03T12:00:00Z"),
-                new Transaction("42", "Payment of the bill 23122","outcome", "contoso", "0004", "1010", "Transfer", "400.00", "2022-8-04T12:00:00Z"),
-                new Transaction("52", "Payment of the bill 171443","outcome", "contoso", "0005", "1010", "Transfer", "500.00", "2020-4-05T12:00:00Z")
-         )));
+        // Account 1020 (Charlie User)
+        List<Transaction> list1020 = new CopyOnWriteArrayList<>(Arrays.asList(
+                new Transaction("tx-2001", "Monthly Apartment Rent", "outcome", "Metropolitan Properties", "0001", "1020", "BankTransfer", "1200.00", "2024-04-01T10:00:00Z"),
+                new Transaction("tx-2002", "Online Cloud Subscription", "outcome", "Cloud Provider", "0002", "1020", "CreditCard", "45.00", "2024-03-15T14:20:00Z"),
+                new Transaction("tx-2003", "Consulting Fee Deposit", "income", "Acme Consulting", "0003", "1020", "Transfer", "2200.00", "2024-03-01T09:00:00Z")
+        ));
+        allTransactions.put("1020", list1020);
+        lastTransactions.put("1020", new CopyOnWriteArrayList<>(list1020.subList(0, Math.min(5, list1020.size()))));
+    }
 
-
-
-     }
     public List<Transaction> getTransactionsByRecipientName(String accountId, String name) {
-
-        if (accountId == null || accountId.isEmpty())
-            throw new IllegalArgumentException("AccountId is empty or null");
-        try {
-            Integer.parseInt(accountId);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("AccountId is not a valid number");
+        validateAccountId(accountId);
+        List<Transaction> list = allTransactions.get(accountId);
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyList();
         }
-
-    if ( allTransactions.get(accountId) == null) return new ArrayList<>();
-        else
-      return  allTransactions.get(accountId).stream()
-                .filter(transaction -> transaction.recipientName().toLowerCase().contains(name.toLowerCase()))
+        if (name == null || name.trim().isEmpty()) {
+            return new ArrayList<>(list);
+        }
+        String lowerName = name.trim().toLowerCase(Locale.ROOT);
+        return list.stream()
+                .filter(transaction -> transaction.recipientName() != null &&
+                        transaction.recipientName().toLowerCase(Locale.ROOT).contains(lowerName))
                 .collect(Collectors.toList());
-
     }
 
     public List<Transaction> getlastTransactions(String accountId) {
-        if (accountId == null || accountId.isEmpty())
-            throw new IllegalArgumentException("AccountId is empty or null");
-        try {
-            Integer.parseInt(accountId);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("AccountId is not a valid number");
+        validateAccountId(accountId);
+        List<Transaction> list = lastTransactions.get(accountId);
+        if (list == null) {
+            return allTransactions.getOrDefault(accountId, Collections.emptyList());
         }
-
-        if ( lastTransactions.get(accountId) == null) return new ArrayList<>();
-        else
-        return lastTransactions.get(accountId);
+        return new ArrayList<>(list);
     }
 
-    public void notifyTransaction(String accountId,Transaction transaction){
-        if (accountId == null || accountId.isEmpty())
-            throw new IllegalArgumentException("AccountId is empty or null");
-        try {
-            Integer.parseInt(accountId);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("AccountId is not a valid number");
+    public List<Transaction> getAllTransactions(String accountId) {
+        validateAccountId(accountId);
+        return new ArrayList<>(allTransactions.getOrDefault(accountId, Collections.emptyList()));
+    }
+
+    public void notifyTransaction(String accountId, Transaction transaction) {
+        validateAccountId(accountId);
+        if (transaction == null) {
+            throw new IllegalArgumentException("Transaction cannot be null");
         }
 
-         var transactionsList = allTransactions.get(accountId);
-         if ( transactionsList == null)
-             throw new RuntimeException("Cannot find all transactions for account id: "+accountId);
-        transactionsList.add(transaction);
+        allTransactions.computeIfAbsent(accountId, k -> new CopyOnWriteArrayList<>()).add(0, transaction);
+        
+        List<Transaction> lastList = lastTransactions.computeIfAbsent(accountId, k -> new CopyOnWriteArrayList<>());
+        lastList.add(0, transaction);
+        if (lastList.size() > 10) {
+            lastList.remove(lastList.size() - 1);
+        }
 
-        var lastTransactionsList = lastTransactions.get(accountId);
-        if ( lastTransactionsList == null)
-            throw new RuntimeException("Cannot find last transactions for account id: "+accountId);
-        lastTransactionsList.add(transaction);
+        LOGGER.info("Transaction recorded for account {}: id={}, amount={}, recipient={}",
+                accountId, transaction.id(), transaction.amount(), transaction.recipientName());
+    }
 
-
+    private void validateAccountId(String accountId) {
+        if (accountId == null || accountId.trim().isEmpty()) {
+            throw new IllegalArgumentException("AccountId is empty or null");
+        }
+        try {
+            Long.parseLong(accountId.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("AccountId is not a valid number: " + accountId);
+        }
     }
 }

@@ -1,49 +1,70 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
-
-import github from "../../assets/github.svg";
-
 import styles from "./Layout.module.css";
-
 import { useLogin } from "../../authConfig";
-
 import { LoginButton } from "../../components/LoginButton";
 
-const Layout = () => {
+export const Layout = () => {
     return (
         <div className={styles.layout}>
-            <header className={styles.header} role={"banner"}>
+            <header className={styles.header} role="banner">
                 <div className={styles.headerContainer}>
                     <Link to="/" className={styles.headerTitleContainer}>
-                        <h3 className={styles.headerTitle}>Agents Java Sample</h3>
+                        <div className={styles.logoIcon}>🏦</div>
+                        <div>
+                            <h3 className={styles.headerTitle}>NovaBank Copilot</h3>
+                            <span className={styles.headerSubtitle}>AI Intelligent Financial Assistant</span>
+                        </div>
                     </Link>
-                    <nav>
+
+                    <nav className={styles.navMenu}>
                         <ul className={styles.headerNavList}>
                             <li>
-                                <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Chat
+                                <NavLink
+                                    to="/"
+                                    end
+                                    className={({ isActive }) =>
+                                        isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink
+                                    }
+                                >
+                                    💬 AI Copilot
                                 </NavLink>
                             </li>
-
-                            <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/dantelmomsft/personal-finance-assistant-java" target={"_blank"} title="Github repository link">
-                                    <img
-                                        src={github}
-                                        alt="Github logo"
-                                        aria-label="Link to github repository"
-                                        width="20px"
-                                        height="20px"
-                                        className={styles.githubLogo}
-                                    />
-                                </a>
+                            <li>
+                                <NavLink
+                                    to="/dashboard"
+                                    className={({ isActive }) =>
+                                        isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink
+                                    }
+                                >
+                                    📊 Dashboard & Accounts
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/transactions"
+                                    className={({ isActive }) =>
+                                        isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink
+                                    }
+                                >
+                                    📜 Transaction Ledger
+                                </NavLink>
                             </li>
                         </ul>
                     </nav>
-                    <h4 className={styles.headerRightText}>Banking Assistance Copilot</h4>
-                    {useLogin && <LoginButton />}
+
+                    <div className={styles.rightSection}>
+                        <div className={styles.activeSystemBadge}>
+                            <span className={styles.pulseDot}></span>
+                            <span>Banking Services Online</span>
+                        </div>
+                        {useLogin && <LoginButton />}
+                    </div>
                 </div>
             </header>
 
-            <Outlet />
+            <main className={styles.content}>
+                <Outlet />
+            </main>
         </div>
     );
 };

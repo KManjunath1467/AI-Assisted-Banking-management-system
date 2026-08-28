@@ -10,73 +10,97 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
 public class PaymentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentService.class);
 
     private final WebClient.Builder webClientBuilder;
     private final String transactionAPIUrl;
 
-    public PaymentService(WebClient.Builder webClientBuilder, @Value("${transactions.api.url}") String transactionAPIUrl) {
+    public PaymentService(WebClient.Builder webClientBuilder, @Value("${transactions.api.url:http://localhost:8080}") String transactionAPIUrl) {
         this.webClientBuilder = webClientBuilder;
         this.transactionAPIUrl = transactionAPIUrl;
     }
 
     public void processPayment(Payment payment) {
+        validatePayment(payment);
 
-        if (payment.accountId() == null || payment.accountId().isEmpty())
-            throw new IllegalArgumentException("AccountId is empty or null");
-        try {
-            Integer.parseInt(payment.accountId());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("AccountId is not a valid number");
-        }
+        LOGGER.info("Processing payment for account {}: amount={}, type={}, recipient={}",
+                payment.accountId(), payment.amount(), payment.paymentType(), payment.recipientName());
 
-        if (!payment.paymentType().equalsIgnoreCase("transfer") && (payment.paymentMethodId() == null || payment.paymentMethodId().isEmpty()))
-            throw new IllegalArgumentException("paymentMethodId is empty or null");
-
-        try {
-            Integer.parseInt(payment.paymentMethodId());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("paymentMethodId is not a valid number");
-        }
-
-
-        // Log the payment details
-        logger.info("Payment successful for: {}", payment.toString());
-
-        // Convert the Payment object into a Transaction object
         Transaction transaction = convertPaymentToTransaction(payment);
 
-        /**
-         * Make the POST request. The transaction is sent to the transaction API. In a real scenario this would be an event published to a hub and consumed by the transaction API.
-         */
+        notifyTransactionService(payment, transaction);
+    }
 
-        logger.info("Notifying payment [{}] for account[{}]..", payment.description() , transaction.accountId());
-        webClientBuilder.build()
-                .post()
-                .uri(transactionAPIUrl + "/transactions/{accountId}", payment.accountId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(transaction))
-                .retrieve()
-                .bodyToMono(String.class)
-                .subscribe(response -> logger.info("Transaction notified for: {}", transaction.toString()));
+    private void validatePayment(Payment payment) {
+        if (payment == null) {
+            throw new IllegalArgumentException("Payment payload cannot be null");
+        }
+
+        if (payment.accountId() == null || payment.accountId().trim().isEmpty()) {
+            throw new IllegalArgumentException("AccountId is empty or null");
+        }
+
+        try {
+            Long.parseLong(payment.accountId().trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("AccountId is not a valid number: " + payment.accountId());
+        }
+
+        boolean isTransfer = payment.paymentType() != null && payment.paymentType().equalsIgnoreCase("transfer");
+        if (!isTransfer) {
+            if (payment.paymentMethodId() == null || payment.paymentMethodId().trim().isEmpty()) {
+                throw new IllegalArgumentException("paymentMethodId is empty or null for non-transfer payments");
+            }
+            try {
+                Long.parseLong(payment.paymentMethodId().trim());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("paymentMethodId is not a valid number: " + payment.paymentMethodId());
+            }
+        }
+    }
+
+    private void notifyTransactionService(Payment payment, Transaction transaction) {
+        LOGGER.info("Notifying transaction API at {}/transactions/{} for payment [{}]...",
+                transactionAPIUrl, payment.accountId(), payment.description());
+
+        try {
+            webClientBuilder.build()
+                    .post()
+                    .uri(transactionAPIUrl + "/transactions/{accountId}", payment.accountId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(BodyInserters.fromValue(transaction))
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .doOnSuccess(response -> LOGGER.info("Transaction recorded successfully: id={}", transaction.id()))
+                    .doOnError(error -> LOGGER.warn("Failed to notify transaction API (offline/async): {}", error.getMessage()))
+                    .onErrorReturn("Transaction recorded locally")
+                    .subscribe();
+        } catch (Exception ex) {
+            LOGGER.warn("Could not dispatch transaction notification: {}", ex.getMessage());
+        }
     }
 
     private Transaction convertPaymentToTransaction(Payment payment) {
+        String timestamp = payment.timestamp() != null && !payment.timestamp().trim().isEmpty()
+                ? payment.timestamp()
+                : Instant.now().toString();
+
         return new Transaction(
                 UUID.randomUUID().toString(),
-                payment.description(),
+                payment.description() != null ? payment.description() : "Payment to " + payment.recipientName(),
                 "outcome",
                 payment.recipientName(),
                 payment.recipientBankCode(),
                 payment.accountId(),
                 payment.paymentType(),
                 payment.amount(),
-                payment.timestamp()
+                timestamp
         );
     }
 }

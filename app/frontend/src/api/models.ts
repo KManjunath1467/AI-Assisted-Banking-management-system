@@ -1,98 +1,122 @@
 export const enum Approaches {
-JAVA_OPENAI_SDK = "jos",
-JAVA_SEMANTIC_KERNEL = "jsk",
-JAVA_SEMANTIC_KERNEL_PLANNER = "jskp"
+    JAVA_OPENAI_SDK = "jos",
+    JAVA_SEMANTIC_KERNEL = "jsk",
+    JAVA_SEMANTIC_KERNEL_PLANNER = "jskp"
 }
 
 export const enum RetrievalMode {
-Hybrid = "hybrid",
-Vectors = "vectors",
-Text = "text"
+    Hybrid = "hybrid",
+    Vectors = "vectors",
+    Text = "text"
 }
 
 export const enum SKMode {
-Chains = "chains",
-Planner = "planner"
+    Chains = "chains",
+    Planner = "planner"
 }
 
-/*
-
-* Represents state maintained during a chat session.
-*
-* Kept as `any` for compatibility with the existing application,
-* since the actual session-state structure can vary by approach.
-  */
-  export type SessionState = any;
+export type SessionState = any;
 
 export type ChatAppRequestOverrides = {
-retrieval_mode?: RetrievalMode;
-semantic_ranker?: boolean;
-semantic_captions?: boolean;
-exclude_category?: string;
-top?: number;
-temperature?: number;
-prompt_template?: string;
-prompt_template_prefix?: string;
-prompt_template_suffix?: string;
-suggest_followup_questions?: boolean;
-use_oid_security_filter?: boolean;
-use_groups_security_filter?: boolean;
-semantic_kernel_mode?: SKMode;
+    retrieval_mode?: RetrievalMode;
+    semantic_ranker?: boolean;
+    semantic_captions?: boolean;
+    exclude_category?: string;
+    top?: number;
+    temperature?: number;
+    prompt_template?: string;
+    prompt_template_prefix?: string;
+    prompt_template_suffix?: string;
+    suggest_followup_questions?: boolean;
+    use_oid_security_filter?: boolean;
+    use_groups_security_filter?: boolean;
+    semantic_kernel_mode?: SKMode;
 };
 
 export type ResponseMessage = {
-content: string;
-role: string;
-attachments?: string[];
+    content: string;
+    role: string;
+    attachments?: string[];
 };
 
 export type ResponseContext = {
-thoughts: string | null;
-data_points: string[];
+    thoughts: string | null;
+    data_points: string[];
 };
 
 export type ResponseChoice = {
-index: number;
-message: ResponseMessage;
-context: ResponseContext;
-session_state: SessionState;
+    index: number;
+    message: ResponseMessage;
+    context: ResponseContext;
+    session_state: SessionState;
 };
 
 export type ChatAppResponseOrError = {
-choices?: ResponseChoice[];
-error?: string;
+    choices?: ResponseChoice[];
+    error?: string;
 };
 
 export type ChatAppResponse = {
-choices: ResponseChoice[];
-
-```
-/*
- * Optional identifier used to associate the response
- * with an existing conversation thread.
- */
-threadId?: string;
-```
-
+    choices: ResponseChoice[];
+    threadId?: string;
 };
 
 export type ChatAppRequestContext = {
-overrides?: ChatAppRequestOverrides;
+    overrides?: ChatAppRequestOverrides;
 };
 
 export type ChatAppRequest = {
-messages: ResponseMessage[];
-approach: Approaches;
-context?: ChatAppRequestContext;
-stream?: boolean;
-session_state: SessionState;
-
-```
-/*
- * Optional thread identifier for continuing
- * an existing conversation.
- */
-threadId?: string;
-```
-
+    messages: ResponseMessage[];
+    approach: Approaches;
+    context?: ChatAppRequestContext;
+    stream?: boolean;
+    session_state: SessionState;
+    threadId?: string;
 };
+
+export interface PaymentMethodSummary {
+    id: string;
+    name: string;
+    startDate: string;
+    endDate: string;
+}
+
+export interface AccountData {
+    id: string;
+    userName: string;
+    accountHolderFullName: string;
+    currency: string;
+    activationDate: string;
+    balance: string;
+    paymentMethods?: PaymentMethodSummary[];
+}
+
+export interface Beneficiary {
+    id: string;
+    name: string;
+    accountNumber: string;
+    bankName: string;
+}
+
+export interface TransactionData {
+    id: string;
+    description: string;
+    type: string; // 'income' | 'outcome'
+    recipientName: string;
+    recipientBankCode: string;
+    accountId: string;
+    paymentType: string;
+    amount: string;
+    timestamp: string;
+}
+
+export interface PaymentPayload {
+    accountId: string;
+    recipientName: string;
+    recipientBankCode: string;
+    amount: string;
+    paymentType: string;
+    paymentMethodId?: string;
+    description: string;
+    timestamp?: string;
+}

@@ -1,33 +1,32 @@
-```java
 package com.microsoft.openai.samples.assistant.business.service;
 
 import com.microsoft.openai.samples.assistant.business.models.Account;
 import com.microsoft.openai.samples.assistant.business.models.Beneficiary;
 import com.microsoft.openai.samples.assistant.business.models.PaymentMethod;
 import com.microsoft.openai.samples.assistant.business.models.PaymentMethodSummary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class AccountService {
 
-    private final Map<String, Account> accounts;
-    private final Map<String, PaymentMethod> paymentMethods;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
+
+    private final Map<String, Account> accounts = new ConcurrentHashMap<>();
+    private final Map<String, PaymentMethod> paymentMethods = new ConcurrentHashMap<>();
 
     public AccountService() {
-        accounts = new HashMap<>();
-        paymentMethods = new HashMap<>();
-
         initializeAccounts();
         initializePaymentMethods();
     }
 
     private void initializeAccounts() {
-
         accounts.put(
                 "1000",
                 new Account(
@@ -102,7 +101,6 @@ public class AccountService {
     }
 
     private void initializePaymentMethods() {
-
         paymentMethods.put(
                 "12345",
                 new PaymentMethod(
@@ -154,11 +152,15 @@ public class AccountService {
 
     public Account getAccountDetails(String accountId) {
         validateNumericId(accountId, "AccountId");
-        return accounts.get(accountId);
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            LOGGER.warn("Account with ID {} not found", accountId);
+        }
+        return account;
     }
 
     public PaymentMethod getPaymentMethodDetails(String paymentMethodId) {
-        validateNumericId(paymentMethodId, "AccountId");
+        validateNumericId(paymentMethodId, "PaymentMethodId");
         return paymentMethods.get(paymentMethodId);
     }
 
@@ -177,30 +179,53 @@ public class AccountService {
                         "Jane TheElectrician",
                         "987654321",
                         "UBS"
+                ),
+                new Beneficiary(
+                        "3",
+                        "Acme Electric Co.",
+                        "554433221",
+                        "JPMorgan Chase"
                 )
         );
     }
 
-    /*
-     * Shared validation helper.
-     * Keeps the existing validation behavior in one place.
-     * It can also be reused by future account-related methods.
-     */
-    private void validateNumericId(String id, String fieldName) {
-
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException(
-                    fieldName + " is empty or null"
-            );
+    public boolean updateAccountBalance(String accountId, double delta) {
+        validateNumericId(accountId, "AccountId");
+        Account existing = accounts.get(accountId);
+        if (existing == null) {
+            return false;
         }
-
         try {
-            Integer.parseInt(id);
-        } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException(
-                    fieldName + " is not a valid number"
+            double currentBalance = Double.parseDouble(existing.balance());
+            double newBalance = currentBalance + delta;
+            if (newBalance < 0) {
+                return false;
+            }
+            Account updated = new Account(
+                    existing.id(),
+                    existing.userName(),
+                    existing.accountHolderFullName(),
+                    existing.currency(),
+                    existing.activationDate(),
+                    String.format("%.2f", newBalance),
+                    existing.paymentMethods()
             );
+            accounts.put(accountId, updated);
+            return true;
+        } catch (Exception ex) {
+            LOGGER.error("Error updating account balance for {}: {}", accountId, ex.getMessage());
+            return false;
+        }
+    }
+
+    private void validateNumericId(String id, String fieldName) {
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " is empty or null");
+        }
+        try {
+            Long.parseLong(id.trim());
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException(fieldName + " is not a valid number: " + id);
         }
     }
 }
-```

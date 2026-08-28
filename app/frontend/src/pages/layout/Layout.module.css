@@ -1,78 +1,145 @@
 .layout {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #f8fafc;
 }
 
 .header {
-    background-color: #222222;
-    color: #f2f2f2;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .headerContainer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-around;
-    margin-right: 12px;
-    margin-left: 12px;
+    padding: 12px 32px;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 .headerTitleContainer {
     display: flex;
     align-items: center;
-    margin-right: 40px;
-    color: #f2f2f2;
+    gap: 12px;
     text-decoration: none;
+    color: inherit;
 }
 
-.headerLogo {
-    height: 40px;
+.logoIcon {
+    font-size: 26px;
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .headerTitle {
-    margin-left: 12px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.headerSubtitle {
+    font-size: 11px;
+    color: #94a3b8;
+    display: block;
+}
+
+.navMenu {
+    display: flex;
 }
 
 .headerNavList {
     display: flex;
     list-style: none;
-    padding-left: 0;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+    background: rgba(30, 41, 59, 0.6);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .headerNavPageLink {
-    color: #f2f2f2;
+    display: block;
     text-decoration: none;
-    opacity: 0.75;
-
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    transition-duration: 500ms;
-    transition-property: opacity;
+    color: #94a3b8;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 7px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .headerNavPageLink:hover {
-    opacity: 1;
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .headerNavPageLinkActive {
-    color: #f2f2f2;
+    display: block;
     text-decoration: none;
-}
-
-.headerNavLeftMargin {
-    margin-left: 20px;
-}
-
-.headerRightText {
-    font-weight: normal;
-    margin-left: 40px;
-}
-
-.microsoftLogo {
-    height: 23px;
+    color: #ffffff;
+    font-size: 13.5px;
     font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 8px;
+    background: #6366f1;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
 }
 
-.githubLogo {
-    height: 20px;
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.activeSystemBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.pulseDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }

@@ -1,26 +1,27 @@
-```java id="8x3nqk"
 package com.microsoft.openai.samples.assistant.business.service;
 
 import com.microsoft.openai.samples.assistant.business.models.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class UserService {
 
-    private final Map<String, Account> accounts;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
+    private final Map<String, Account> accounts = new ConcurrentHashMap<>();
 
     public UserService() {
-        accounts = new HashMap<>();
         initializeUsers();
     }
 
     private void initializeUsers() {
-
         accounts.put(
                 "alice.user@contoso.com",
                 new Account(
@@ -62,16 +63,25 @@ public class UserService {
     }
 
     public List<Account> getAccountsByUserName(String userName) {
-        return Arrays.asList(accounts.get(userName));
+        if (userName == null || userName.trim().isEmpty()) {
+            LOGGER.warn("Attempted to lookup accounts with empty username");
+            return Collections.emptyList();
+        }
+        Account account = accounts.get(userName.trim().toLowerCase());
+        if (account == null) {
+            // fallback check ignoring case
+            account = accounts.values().stream()
+                    .filter(a -> a.userName().equalsIgnoreCase(userName.trim()))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return account != null ? Collections.singletonList(account) : Collections.emptyList();
     }
 
-    /*
-     * Optional helper.
-     * Use only when a direct account lookup is required.
-     * Existing application methods do not depend on this method.
-     */
     public Account findAccount(String userName) {
-        return accounts.get(userName);
+        if (userName == null) {
+            return null;
+        }
+        return accounts.get(userName.trim().toLowerCase());
     }
 }
-```

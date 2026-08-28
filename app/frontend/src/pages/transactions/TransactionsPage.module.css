@@ -1,0 +1,279 @@
+.container {
+    padding: 24px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: #f1f5f9;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.accountSelector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(30, 41, 59, 0.7);
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.selectorLabel {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.selectInput {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.statCard {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 18px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.statLabel {
+    font-size: 12.5px;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.statValue {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.incomeColor {
+    color: #34d399;
+}
+
+.outcomeColor {
+    color: #f87171;
+}
+
+.filterBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.searchWrapper {
+    flex: 1;
+    min-width: 260px;
+}
+
+.searchInput {
+    width: 100%;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 9px 14px;
+    color: #ffffff;
+    font-size: 13.5px;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: #6366f1;
+}
+
+.filterControls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filterSelect {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13.5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.refreshBtn {
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.refreshBtn:hover {
+    background: rgba(99, 102, 241, 0.35);
+}
+
+.tableCard {
+    background: #1e293b;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.table th {
+    background: rgba(15, 23, 42, 0.8);
+    text-align: left;
+    padding: 14px 18px;
+    color: #94a3b8;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.idCell {
+    font-family: monospace;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.dateCell {
+    color: #94a3b8;
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+.descCell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.inBadge {
+    font-size: 10.5px;
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.outBadge {
+    font-size: 10.5px;
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.methodBadge {
+    font-size: 11.5px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #cbd5e1;
+}
+
+.codeCell {
+    font-family: monospace;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.amountCol {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.incomeText {
+    color: #34d399;
+}
+
+.outcomeText {
+    color: #f87171;
+}
+
+.loadingState, .emptyState {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(99, 102, 241, 0.2);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
