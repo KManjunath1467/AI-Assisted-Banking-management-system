@@ -16,10 +16,10 @@ import java.util.*;
 @Configuration
 public class AzureOpenAIConfiguration {
 
-    @Value("${openai.service}")
+    @Value("${openai.service:openai}")
     String openAIServiceName;
 
-    @Value("${openai.chatgpt.deployment}")
+    @Value("${openai.chatgpt.deployment:gpt-4o}")
     private String gptChatDeploymentModelId;
 
     final TokenCredential tokenCredential;

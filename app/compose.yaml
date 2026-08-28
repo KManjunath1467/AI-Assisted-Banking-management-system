@@ -10,19 +10,13 @@ services:
     image: agent-openai-java-banking-assistant/copilot-backend
     build: ./copilot
     environment:
-      - AZURE_STORAGE_ACCOUNT=${AZURE_STORAGE_ACCOUNT}  
-      - AZURE_STORAGE_CONTAINER=${AZURE_STORAGE_CONTAINER}   
-      - AZURE_OPENAI_CHATGPT_MODEL=${AZURE_OPENAI_CHATGPT_MODEL}
-      - AZURE_OPENAI_SERVICE=${AZURE_OPENAI_SERVICE}
-      - AZURE_OPENAI_CHATGPT_DEPLOYMENT=${AZURE_OPENAI_CHATGPT_DEPLOYMENT}
-      - AZURE_DOCUMENT_INTELLIGENCE_SERVICE=${AZURE_DOCUMENT_INTELLIGENCE_SERVICE}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-demo}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_MODEL_NAME=${OPENAI_MODEL_NAME:-gpt-4o}
       - spring_profiles_active=docker
       - ACCOUNTS_API_SERVER_URL=http://account:8080
       - PAYMENTS_API_SERVER_URL=http://payment:8080
       - TRANSACTIONS_API_SERVER_URL=http://transaction:8080
-      - AZURE_CLIENT_ID=${servicePrincipal}
-      - AZURE_CLIENT_SECRET=${servicePrincipalPassword}
-      - AZURE_TENANT_ID=${servicePrincipalTenant}
   account:
     image: agent-openai-java-banking-assistant/business-account
     build:

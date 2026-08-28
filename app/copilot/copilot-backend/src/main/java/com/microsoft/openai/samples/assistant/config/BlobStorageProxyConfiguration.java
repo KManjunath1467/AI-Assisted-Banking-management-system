@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BlobStorageProxyConfiguration {
-    @Value("${storage-account.service}")
+    @Value("${storage-account.service:storage}")
     String storageAccountServiceName;
-    @Value("${blob.container.name}")
+    @Value("${blob.container.name:content}")
     String containerName;
 
     @Bean
