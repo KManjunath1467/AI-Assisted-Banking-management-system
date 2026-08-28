@@ -8,7 +8,7 @@
         <version>3.3.6</version>
     </parent>
 
-    <groupId>com.microsoft.openai.samples.assistant.business</groupId>
+    <groupId>com.banking.assistant.business</groupId>
     <artifactId>account</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 

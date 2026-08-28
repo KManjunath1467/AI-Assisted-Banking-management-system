@@ -34,4 +34,4 @@ COPY --from=build /workspace/app/applicationinsights-agent-3.5.4.jar /app
 COPY --from=build /workspace/app/applicationinsights.json /app
 EXPOSE 8080
 
-ENTRYPOINT ["java","-javaagent:/app/applicationinsights-agent-3.5.4.jar","-noverify", "-XX:MaxRAMPercentage=70", "-XX:+UseParallelGC", "-XX:ActiveProcessorCount=2", "-cp","app:app/lib/*","com.microsoft.openai.samples.assistant.CopilotApplication"]
+ENTRYPOINT ["java","-javaagent:/app/applicationinsights-agent-3.5.4.jar","-noverify", "-XX:MaxRAMPercentage=70", "-XX:+UseParallelGC", "-XX:ActiveProcessorCount=2", "-cp","app:app/lib/*","com.banking.assistant.CopilotApplication"]

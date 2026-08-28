@@ -1,6 +1,6 @@
 package dev.langchain4j.openapi;
 
-import com.microsoft.openai.samples.assistant.langchain4j.agent.openapi.TransactionHistoryAgent;
+import com.banking.assistant.langchain4j.agent.openapi.TransactionHistoryAgent;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.azure.AzureOpenAiChatModel;

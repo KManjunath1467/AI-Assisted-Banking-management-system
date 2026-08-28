@@ -1,6 +1,6 @@
 package dev.langchain4j.openapi.mcp;
 
-import com.microsoft.openai.samples.assistant.langchain4j.agent.mcp.AccountMCPAgent;
+import com.banking.assistant.langchain4j.agent.mcp.AccountMCPAgent;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.azure.AzureOpenAiChatModel;

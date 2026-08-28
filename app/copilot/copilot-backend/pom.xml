@@ -8,7 +8,7 @@
 		<version>3.3.6</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.microsoft.openai.samples.assistant</groupId>
+	<groupId>com.banking.assistant</groupId>
 	<artifactId>personal-finance-assistant-copilot</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>personal-finance-assistant-copilot-langchain4j</name>
@@ -37,7 +37,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.microsoft.openai.samples.assistant</groupId>
+			<groupId>com.banking.assistant</groupId>
 			<artifactId>langchain4j-agents</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
@@ -64,7 +64,7 @@
 			<artifactId>azure-identity</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.microsoft.openai.samples.assistant</groupId>
+			<groupId>com.banking.assistant</groupId>
 			<artifactId>langgraph4j-agents</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
