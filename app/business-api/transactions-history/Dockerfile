@@ -31,4 +31,4 @@ COPY --from=build /workspace/app/applicationinsights.json /app
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-javaagent:/app/applicationinsights-agent-3.5.4.jar","-noverify", "-XX:MaxRAMPercentage=70", "-XX:+UseParallelGC", "-XX:ActiveProcessorCount=2", "-cp","app:app/lib/*","business.com.banking.assistant.langgraph4j.TransactionsHistoryApplication"]
+ENTRYPOINT ["java","-javaagent:/app/applicationinsights-agent-3.5.4.jar","-noverify", "-XX:MaxRAMPercentage=70", "-XX:+UseParallelGC", "-XX:ActiveProcessorCount=2", "-cp","app:app/lib/*","com.banking.assistant.business.TransactionsHistoryApplication"]
