@@ -1,8 +1,8 @@
 package com.banking.assistant.langgraph4j;
 
 
-import com.microsoft.langchain4j.agent.Agent;
-import com.microsoft.langchain4j.agent.AgentMetadata;
+import com.banking.assistant.langchain4j.agent.Agent;
+import com.banking.assistant.langchain4j.agent.AgentMetadata;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.SystemMessage;

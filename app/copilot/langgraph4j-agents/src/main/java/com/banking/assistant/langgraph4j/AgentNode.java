@@ -1,6 +1,6 @@
 package com.banking.assistant.langgraph4j;
 
-import com.microsoft.langchain4j.agent.Agent;
+import com.banking.assistant.langchain4j.agent.Agent;
 import org.bsc.langgraph4j.action.AsyncNodeAction;
 import org.bsc.langgraph4j.action.NodeAction;
 import org.slf4j.Logger;

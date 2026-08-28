@@ -1,8 +1,8 @@
 package com.banking.assistant.langchain4j.agent.openapi;
 
-import com.microsoft.langchain4j.agent.AgentMetadata;
-import com.microsoft.langchain4j.agent.openapi.OpenAPIImporterMetadata;
-import com.microsoft.langchain4j.agent.openapi.OpenAPIToolAgent;
+import com.banking.assistant.langchain4j.agent.AgentMetadata;
+import com.banking.assistant.langchain4j.agent.openapi.OpenAPIImporterMetadata;
+import com.banking.assistant.langchain4j.agent.openapi.OpenAPIToolAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.input.Prompt;
 import dev.langchain4j.model.input.PromptTemplate;

@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 package com.banking.assistant.config;
 
-import com.microsoft.langchain4j.agent.AbstractReActAgent;
+import com.banking.assistant.langchain4j.agent.AbstractReActAgent;
 import com.banking.assistant.invoice.DocumentIntelligenceInvoiceScanHelper;
 import com.banking.assistant.langchain4j.agent.SupervisorRoutingAgent;
 import com.banking.assistant.langgraph4j.SupervisorAgent;

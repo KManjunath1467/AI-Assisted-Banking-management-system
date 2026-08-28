@@ -1,9 +1,9 @@
 package com.banking.assistant.langchain4j.agent.openapi;
 
-import com.microsoft.langchain4j.agent.AgentExecutionException;
-import com.microsoft.langchain4j.agent.openapi.OpenAPIImporterMetadata;
-import com.microsoft.langchain4j.agent.openapi.OpenAPIToolAgent;
-import com.microsoft.langchain4j.agent.AgentMetadata;
+import com.banking.assistant.langchain4j.agent.AgentExecutionException;
+import com.banking.assistant.langchain4j.agent.openapi.OpenAPIImporterMetadata;
+import com.banking.assistant.langchain4j.agent.openapi.OpenAPIToolAgent;
+import com.banking.assistant.langchain4j.agent.AgentMetadata;
 import com.banking.assistant.invoice.DocumentIntelligenceInvoiceScanHelper;
 import com.banking.assistant.langchain4j.agent.tools.InvoiceScanTool;
 

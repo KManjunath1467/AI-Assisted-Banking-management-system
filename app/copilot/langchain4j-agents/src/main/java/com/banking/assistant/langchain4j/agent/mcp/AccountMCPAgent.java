@@ -1,9 +1,9 @@
 package com.banking.assistant.langchain4j.agent.mcp;
 
-import com.microsoft.langchain4j.agent.AgentMetadata;
-import com.microsoft.langchain4j.agent.mcp.MCPProtocolType;
-import com.microsoft.langchain4j.agent.mcp.MCPServerMetadata;
-import com.microsoft.langchain4j.agent.mcp.MCPToolAgent;
+import com.banking.assistant.langchain4j.agent.AgentMetadata;
+import com.banking.assistant.langchain4j.agent.mcp.MCPProtocolType;
+import com.banking.assistant.langchain4j.agent.mcp.MCPServerMetadata;
+import com.banking.assistant.langchain4j.agent.mcp.MCPToolAgent;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.input.Prompt;
 import dev.langchain4j.model.input.PromptTemplate;

@@ -1,10 +1,10 @@
 package com.banking.assistant.langchain4j.agent.mcp;
 
-import com.microsoft.langchain4j.agent.AgentExecutionException;
-import com.microsoft.langchain4j.agent.AgentMetadata;
-import com.microsoft.langchain4j.agent.mcp.MCPProtocolType;
-import com.microsoft.langchain4j.agent.mcp.MCPServerMetadata;
-import com.microsoft.langchain4j.agent.mcp.MCPToolAgent;
+import com.banking.assistant.langchain4j.agent.AgentExecutionException;
+import com.banking.assistant.langchain4j.agent.AgentMetadata;
+import com.banking.assistant.langchain4j.agent.mcp.MCPProtocolType;
+import com.banking.assistant.langchain4j.agent.mcp.MCPServerMetadata;
+import com.banking.assistant.langchain4j.agent.mcp.MCPToolAgent;
 import com.banking.assistant.invoice.DocumentIntelligenceInvoiceScanHelper;
 import com.banking.assistant.langchain4j.agent.tools.InvoiceScanTool;
 import dev.langchain4j.agent.tool.ToolSpecifications;
