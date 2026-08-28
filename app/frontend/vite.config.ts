@@ -25,22 +25,22 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            "/api/ask": {
+            "/api": {
                 target: 'http://localhost:8080',
                 changeOrigin: true
             },
-            "/api/chat": {
+            "/accounts": {
                 target: 'http://localhost:8080',
                 changeOrigin: true
             },
-            "/api/content": {
+            "/payments": {
                 target: 'http://localhost:8080',
                 changeOrigin: true
             },
-            "/api/auth_setup": {
-                 target: 'http://localhost:8080',
-                 changeOrigin: true
-                        }
+            "/transactions": {
+                target: 'http://localhost:8080',
+                changeOrigin: true
+            }
         }
     }
 });

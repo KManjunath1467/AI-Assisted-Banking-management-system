@@ -9,7 +9,7 @@ import {
 } from "./models";
 import { useLogin } from "../authConfig";
 
-const BACKEND_URI = import.meta.env.VITE_BACKEND_URI ? import.meta.env.VITE_BACKEND_URI : "";
+const BACKEND_URI = import.meta.env?.VITE_BACKEND_URI ? import.meta.env.VITE_BACKEND_URI : "";
 
 function getHeaders(idToken: string | undefined, stream: boolean): Record<string, string> {
     const headers: Record<string, string> = {
@@ -29,7 +29,8 @@ function getHeaders(idToken: string | undefined, stream: boolean): Record<string
 }
 
 export async function askApi(request: ChatAppRequest, idToken: string | undefined): Promise<ChatAppResponse> {
-    const response = await fetch(`${BACKEND_URI}/ask`, {
+    const url = `${BACKEND_URI}/api/ask`;
+    const response = await fetch(url, {
         method: "POST",
         headers: getHeaders(idToken, request.stream || false),
         body: JSON.stringify(request)
@@ -44,7 +45,8 @@ export async function askApi(request: ChatAppRequest, idToken: string | undefine
 }
 
 export async function chatApi(request: ChatAppRequest, idToken: string | undefined): Promise<Response> {
-    return await fetch(`${BACKEND_URI}/chat`, {
+    const url = `${BACKEND_URI}/api/chat`;
+    return await fetch(url, {
         method: "POST",
         headers: getHeaders(idToken, request.stream || false),
         body: JSON.stringify(request)
@@ -52,14 +54,14 @@ export async function chatApi(request: ChatAppRequest, idToken: string | undefin
 }
 
 export function getCitationFilePath(citation: string): string {
-    return `${BACKEND_URI}/content/${citation}`;
+    return `${BACKEND_URI}/api/content/${citation}`;
 }
 
 export function uploadAttachment(file: File): Promise<string> {
     const formData = new FormData();
     formData.append("file", file);
 
-    return fetch(`${BACKEND_URI}/content`, {
+    return fetch(`${BACKEND_URI}/api/content`, {
         method: "POST",
         body: formData
     }).then(response => {
@@ -71,10 +73,10 @@ export function uploadAttachment(file: File): Promise<string> {
 }
 
 export function getImage(name: string): string {
-    return `${BACKEND_URI}/content/${name}`;
+    return `${BACKEND_URI}/api/content/${name}`;
 }
 
-// Mock fallback account data
+// Fallback seed data for local testing and standalone frontend preview
 const MOCK_ACCOUNTS: Record<string, AccountData> = {
     "1000": {
         id: "1000",
@@ -131,7 +133,7 @@ let mockTransactions: TransactionData[] = [
 
 export async function fetchAccountDetails(accountId: string = "1000"): Promise<AccountData> {
     try {
-        const res = await fetch(`/accounts/${accountId}`);
+        const res = await fetch(`${BACKEND_URI}/accounts/${accountId}`);
         if (res.ok) {
             return await res.json();
         }
@@ -143,7 +145,7 @@ export async function fetchAccountDetails(accountId: string = "1000"): Promise<A
 
 export async function fetchBeneficiaries(accountId: string = "1000"): Promise<Beneficiary[]> {
     try {
-        const res = await fetch(`/accounts/${accountId}/registeredBeneficiaries`);
+        const res = await fetch(`${BACKEND_URI}/accounts/${accountId}/registeredBeneficiaries`);
         if (res.ok) {
             return await res.json();
         }
@@ -155,7 +157,7 @@ export async function fetchBeneficiaries(accountId: string = "1000"): Promise<Be
 
 export async function fetchTransactions(accountId: string = "1000"): Promise<TransactionData[]> {
     try {
-        const res = await fetch(`/transactions/${accountId}`);
+        const res = await fetch(`${BACKEND_URI}/transactions/${accountId}`);
         if (res.ok) {
             return await res.json();
         }
@@ -167,7 +169,7 @@ export async function fetchTransactions(accountId: string = "1000"): Promise<Tra
 
 export async function submitPayment(payload: PaymentPayload): Promise<{ success: boolean; message: string }> {
     try {
-        const res = await fetch(`/payments`, {
+        const res = await fetch(`${BACKEND_URI}/payments`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
