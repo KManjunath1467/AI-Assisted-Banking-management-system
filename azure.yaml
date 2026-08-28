@@ -2,7 +2,7 @@
 
 name: personal-finance-assistance-java
 metadata:
-  template: agent-openai-java-banking-assistant@1.0.0-alpha
+  template: AI-assisted-java-banking-assistant@1.0.0-alpha
 services:
   copilot:
     project: app/copilot
