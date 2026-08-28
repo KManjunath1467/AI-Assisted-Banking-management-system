@@ -1,31 +1,36 @@
 // Copyright (c) Microsoft. All rights reserved.
 package com.microsoft.openai.samples.assistant.config;
 
-
-import com.azure.ai.openai.OpenAIClient;
-
-import dev.langchain4j.model.azure.AzureOpenAiChatModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
 @Configuration
 public class Langchain4JConfiguration {
 
-    @Value("${openai.chatgpt.deployment}")
-    private String gptChatDeploymentModelId;
+    @Value("${openai.api.key:demo}")
+    private String openAiApiKey;
+
+    @Value("${openai.base.url:https://api.openai.com/v1}")
+    private String openAiBaseUrl;
+
+    @Value("${openai.chatgpt.model:gpt-4o}")
+    private String gptChatModelName;
 
     @Bean
-    public ChatLanguageModel chatLanguageModel(OpenAIClient azureOpenAICLient) {
-
-        return AzureOpenAiChatModel.builder()
-                .openAIClient(azureOpenAICLient)
-                .deploymentName(gptChatDeploymentModelId)
+    public ChatLanguageModel chatLanguageModel() {
+        return OpenAiChatModel.builder()
+                .apiKey(openAiApiKey)
+                .baseUrl(openAiBaseUrl)
+                .modelName(gptChatModelName)
                 .temperature(0.3)
-                .logRequestsAndResponses(true)
+                .timeout(Duration.ofSeconds(60))
+                .logRequests(true)
+                .logResponses(true)
                 .build();
     }
-
-
 }
